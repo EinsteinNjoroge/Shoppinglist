@@ -10,7 +10,7 @@ install:
 
 # run test and report test-coverage to coveralls.io
 script:
-  - "coverage run -m py.test && coverage report"
+  - "nosetests"
   - "coveralls"
 
 
