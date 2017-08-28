@@ -11,9 +11,3 @@ install:
 # run test and report test-coverage to coveralls.io
 script:
   - "nosetests"
-  - "coveralls"
-
-
-after_success:
-  - "coveralls"
-  - "codacy"
