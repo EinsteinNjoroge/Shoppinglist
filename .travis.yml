@@ -10,10 +10,4 @@ install:
 
 # run test and report test-coverage to coveralls.io
 script:
-  - "coverage run --source=classes -m py.test && coverage report"
-  - "coveralls"
-
-
-after_success:
-  - "coveralls"
-  - "codacy"
+  - "nosetests"

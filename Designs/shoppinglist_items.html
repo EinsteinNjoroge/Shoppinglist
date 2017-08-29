@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet"
+          href="http://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.min.css">
+    <link rel="stylesheet"
+          href="https://cdn.datatables.net/1.10.15/css/dataTables.semanticui.min.css">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.2.3/jquery-confirm.min.css">
+    <link rel="stylesheet" href="assets/css/custom_stylesheet.css">
+    <title>My ShoppingList items</title>
+    <style>
+        body {
+            background-image: url("assets/images/background-0.jpg");
+        }
+    </style>
+</head>
+<body>
+
+<div class="mid-center">
+    <div id="ShoppingList_list" class="float-left">
+        <h3>My ShoppingList</h3>
+        <li>dataInTable[count][1]</li>
+        <li>dataInTable[count][1]</li>
+        <li>dataInTable[count][1]</li>
+    </div>
+    <form method="post">
+        <div id="ShoppingListItems" class="float-right">
+            <h3 id="listItemHeader"></h3>
+            <table width="95%" class="ui celled table"
+                   id="ShoppingListItemsTable">
+                <tr>
+                    <td>Live</td>
+                    <td><input type="checkbox"/></td>
+                    <td>
+                        <a class="btn btn-default edit-btn">
+                            <i class="fa fa-pencil"></i>
+                        </a>
+                        <a class="btn btn-default delete-btn">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript"
+        src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript"
+        src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript"
+        src="https://cdn.datatables.net/1.10.15/js/dataTables.semanticui.min.js"></script>
+<script type="text/javascript"
+        src="http://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.min.js"></script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.2.3/jquery-confirm.min.js"></script>
+<script type="text/javascript" src="assets/js/custom_javascript.js"></script>
+</body>
+</html>
