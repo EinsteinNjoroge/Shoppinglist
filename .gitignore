@@ -105,4 +105,8 @@ ENV/
 
 # balsamiq Cache
 wireframes/shoppinglist.bmpr
+
+# Ignored files
 Designs/assets/css/custom_stylesheet.css
+Designs/UML.vsdx
+Designs/~$$UML.~vsdx
