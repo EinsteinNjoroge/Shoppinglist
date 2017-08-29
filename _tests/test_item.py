@@ -2,7 +2,7 @@ from unittest import TestCase
 from classes.item import Item
 
 
-class TestShoppingList(TestCase):
+class TestItem(TestCase):
     def setUp(self):
         self.item = Item("name")
 
