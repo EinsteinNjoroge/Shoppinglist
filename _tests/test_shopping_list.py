@@ -52,13 +52,13 @@ class TestShoppingList(TestCase):
 
         self.assertEqual(
             self.shopping_list.add_item(item_name),
-            "Item" + item_name + " already added"
+            "Item " + item_name + " already added"
         )
 
     def test_list_shopping_list_returns_list(self):
-        self.assertIsInstance(self.shopping_list.list_shopping_lists(), list)
+        self.assertIsInstance(self.shopping_list.list_items(), list)
 
-    def test_list_shopping_list(self):
+    def test_list_items(self):
         # add multiple items
         self.shopping_list.add_item("Test")
         self.shopping_list.add_item("Test 2")
