@@ -4,7 +4,7 @@ from classes.user import User
 
 class TestUser(TestCase):
     def setUp(self):
-        self.user = User("firstname", "lastname", "username", "password_hash")
+        self.user = User("username", "password_hash", "firstname", "lastname")
 
     def tearDown(self):
         self.user = None
@@ -25,7 +25,7 @@ class TestUser(TestCase):
         self.assertIsInstance(self.user.password_hash, str)
 
     def test_user_shopping_list_is_list(self):
-        self.assertIsInstance(self.user.shopping_list, list)
+        self.assertIsInstance(self.user.shopping_lists, list)
 
     def test_create_shopping_list_without_title(self):
         self.assertTrue(self.user.create_shopping_list(None), "shopping list must have a title")
@@ -39,9 +39,9 @@ class TestUser(TestCase):
         self.user.create_shopping_list(shopping_list_title)
 
         self.assertEqual(
-            self.user.shopping_list[0].title,
+            self.user.shopping_lists[0].title,
             shopping_list_title,
-            msg="Method create_shopping_list should add a ShoppingList object to shopping_list"
+            msg="Method create_shopping_list should add a ShoppingList object to shopping_lists"
         )
 
     def test_create_shopping_list_returns_int(self):
