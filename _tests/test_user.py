@@ -31,7 +31,10 @@ class TestUser(TestCase):
         self.assertTrue(self.user.create_shopping_list(None), "shopping list must have a title")
 
     def test_create_shopping_list_with_invalid_title(self):
-        self.assertTrue(self.user.create_shopping_list(1), "shopping list title must be a string")
+        self.assertTrue(
+            self.user.create_shopping_list(["12", "23"]),
+            "shopping list title must be a string"
+        )
 
     def test_create_shopping_list(self):
         # attempt to create a shopping list
