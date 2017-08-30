@@ -55,6 +55,21 @@ class TestShoppingList(TestCase):
             "Item " + item_name + " already added"
         )
 
+    def test_update_list_without_title(self):
+        self.assertTrue(self.shopping_list.update(None), "Shopping list must have a title")
+
+    def test_update_list_with_invalid_title(self):
+        self.assertTrue(self.shopping_list.update([]), "Shopping list title must be a string")
+
+    def test_update_list(self):
+        self.shopping_list.update("new shopping list")
+
+        self.assertEqual(
+            self.shopping_list.title,
+            "new shopping list",
+            msg="Method update should update the shopping lists title"
+        )
+
     def test_list_shopping_list_returns_list(self):
         self.assertIsInstance(self.shopping_list.list_items(), list)
 

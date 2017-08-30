@@ -27,6 +27,16 @@ class ShoppingList(object):
 
         return new_item.id
 
+    def update(self, new_title):
+        if new_title is None or len(new_title) < 1:
+            return "Shopping list must have a title"
+
+        if not isinstance(new_title, str):
+            return "Shopping list title must be a string"
+
+        self.title = new_title
+
+
     def remove_item(self, item_id):
         if not isinstance(item_id, int):
             return "Item id must be an Integer"
