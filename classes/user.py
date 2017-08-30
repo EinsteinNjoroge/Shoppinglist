@@ -1,5 +1,5 @@
 from classes.shopping_list import ShoppingList
-import time
+import app
 
 
 class User(object):
@@ -9,10 +9,7 @@ class User(object):
         self.firstname = firstname
         self.lastname = lastname
         self.shopping_lists = []
-
-        # generate a random id for this item
-        epoch_time = time.time()
-        self.id = round(float(str(epoch_time)[8:]) * 10000000)
+        self.id = app.get_random_id()
 
     def create_shopping_list(self, title):
         if title is None or len(title) < 1:

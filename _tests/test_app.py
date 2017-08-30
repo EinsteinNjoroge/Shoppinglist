@@ -5,6 +5,8 @@ import app
 class TestApp(TestCase):
     def setUp(self):
         self.app = app
+        self.username = "newuser"
+        self.pword = "password123"
 
     def tearDown(self):
         self.app = None
@@ -14,26 +16,26 @@ class TestApp(TestCase):
 
     def test_create_user_account_without_username(self):
         self.assertEqual(
-            self.app.create_user_account("", "password"),
+            self.app.create_user_account("", "pword"),
             "User must provide a username"
         )
 
     def test_create_user_account_with_invalid_username(self):
         self.assertEqual(
-            self.app.create_user_account([], "password"),
+            self.app.create_user_account([], "pword"),
             "Username must be string"
         )
 
     def test_create_user_account_with_invalid_username_characters(self):
         self.assertEqual(
-            self.app.create_user_account("@#^&&", "password"),
+            self.app.create_user_account("@#^&&", "pword"),
             "Username should only contain letters and numbers"
         )
 
     def test_create_user_account_without_password(self):
         self.assertEqual(
             self.app.create_user_account("username", ""),
-            "User must provide a password"
+            "User must provide a pword"
         )
 
     def test_create_user_account_with_invalid_password(self):
@@ -77,24 +79,17 @@ class TestApp(TestCase):
         )
 
     def test_login(self):
-        username = "new_user"
-        password = "password123"
-        self.app.create_user_account(username, password)
-        self.assertTrue(self.app.login(username, password))
+        self.app.create_user_account(self.username, self.pword)
+        self.assertTrue(self.app.login(self.username, self.pword))
 
     def test_login_set_session(self):
-        username = "newuser"
-        password = "password123"
-
-        self.app.create_user_account(username, password)
-        self.app.login(username, password)
+        self.app.create_user_account(self.username, self.pword)
+        self.app.login(self.username, self.pword)
 
         self.assertTrue(self.app.user_logged_in is not None)
 
     def test_signout(self):
-        username = "new_user"
-        password = "password123"
-        self.app.create_user_account(username, password)
-        self.app.login(username, password)
+        self.app.create_user_account(self.username, self.pword)
+        self.app.login(self.username, self.pword)
         self.app.signout()
         self.assertTrue(self.app.user_logged_in is None)

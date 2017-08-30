@@ -1,4 +1,4 @@
-import time
+import app
 from classes.item import Item
 
 
@@ -6,10 +6,7 @@ class ShoppingList(object):
     def __init__(self, title):
         self.title = title
         self.items = []
-
-        # generate a random id for this item
-        epoch_time = time.time()
-        self.id = round(float(str(epoch_time)[8:]) * 10000000)
+        self.id = app.get_random_id()
 
     def add_item(self, item_name):
         if item_name is None or len(item_name) < 1:

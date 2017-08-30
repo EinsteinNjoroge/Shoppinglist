@@ -1,4 +1,6 @@
 from classes.user import User
+import time
+
 
 user_accounts = {}
 user_logged_in = None
@@ -14,7 +16,7 @@ def create_user_account(username=None, password=None, firstname="", lastname="")
         return 'Username must be string'
 
     if len(password) < 1:
-        return 'User must provide a password'
+        return 'User must provide a pword'
 
     if len(username) < 1:
         return 'User must provide a username'
@@ -52,3 +54,10 @@ def login(username, password):
 def signout():
     global user_logged_in
     user_logged_in = None
+
+
+def get_random_id():
+    # generate a random id for this item
+    epoch_time = time.time()
+    id = round(float(str(epoch_time)[8:]) * 10000000)
+    return id
