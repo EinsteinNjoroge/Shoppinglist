@@ -1,20 +1,20 @@
 from unittest import TestCase
-from app import App
+import app
 
 
 class TestApp(TestCase):
     def setUp(self):
-        self.app = App()
+        self.app = app
 
     def tearDown(self):
         self.app = None
 
-    def test_user_accounts_is_list(self):
+    def test_user_accounts_is_dict(self):
         self.assertIsInstance(self.app.user_accounts, dict)
 
     def test_create_user_account_without_username(self):
         self.assertEqual(
-            self.app.create_user_account(None, "password"),
+            self.app.create_user_account("", "password"),
             "User must provide a username"
         )
 
@@ -32,13 +32,13 @@ class TestApp(TestCase):
 
     def test_create_user_account_without_password(self):
         self.assertEqual(
-            self.app.create_user_account("username", None),
+            self.app.create_user_account("username", ""),
             "User must provide a password"
         )
 
     def test_create_user_account_with_invalid_password(self):
         self.assertEqual(
-            self.app.create_user_account("username", []),
+            self.app.create_user_account("username", 12546),
             "Password provided must be a string"
         )
 
@@ -83,10 +83,12 @@ class TestApp(TestCase):
         self.assertTrue(self.app.login(username, password))
 
     def test_login_set_session(self):
-        username = "new_user"
+        username = "newuser"
         password = "password123"
+
         self.app.create_user_account(username, password)
         self.app.login(username, password)
+
         self.assertTrue(self.app.user_logged_in is not None)
 
     def test_signout(self):
