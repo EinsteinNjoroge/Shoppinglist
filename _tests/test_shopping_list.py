@@ -18,11 +18,11 @@ class TestShoppingList(TestCase):
     def test_shopping_list_items_is_list(self):
         self.assertIsInstance(self.shopping_list.items, list)
 
-    def test_add_item_without_title(self):
+    def test_add_item_without_name(self):
         self.assertTrue(self.shopping_list.add_item(None), "Item must have a name")
 
-    def test_add_item_with_invalid_title(self):
-        self.assertTrue(self.shopping_list.add_item([]), "Item name must be a string")
+    def test_add_item_with_invalid_name(self):
+        self.assertTrue(self.shopping_list.add_item(["name"]), "Item name must be a string")
 
     def test_add_item(self):
         # attempt to create a shopping list item
@@ -59,7 +59,7 @@ class TestShoppingList(TestCase):
         self.assertTrue(self.shopping_list.update(None), "Shopping list must have a title")
 
     def test_update_list_with_invalid_title(self):
-        self.assertTrue(self.shopping_list.update([]), "Shopping list title must be a string")
+        self.assertTrue(self.shopping_list.update(["new"]), "Shopping list title must be a string")
 
     def test_update_list(self):
         self.shopping_list.update("new shopping list")

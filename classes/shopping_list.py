@@ -36,7 +36,6 @@ class ShoppingList(object):
 
         self.title = new_title
 
-
     def remove_item(self, item_id):
         if not isinstance(item_id, int):
             return "Item id must be an Integer"

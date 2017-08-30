@@ -19,7 +19,7 @@ class TestItem(TestCase):
         self.assertTrue(self.item.update(None), "Item must have a name")
 
     def test_update_item_with_invalid_name(self):
-        self.assertTrue(self.item.update([]), "Item name must be a string")
+        self.assertTrue(self.item.update(["name"]), "Item name must be a string")
 
     def test_update_item(self):
         self.item.update("new name")
