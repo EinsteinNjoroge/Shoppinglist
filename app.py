@@ -59,5 +59,5 @@ def signout():
 def get_random_id():
     # generate a random id for this item
     epoch_time = time.time()
-    id = round(float(str(epoch_time)[8:]) * 10000000)
-    return id
+    random_id = round(float(str(epoch_time)[8:]) * 10000000)
+    return random_id
