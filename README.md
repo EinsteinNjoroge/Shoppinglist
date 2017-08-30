@@ -6,3 +6,101 @@
 [![Code Health](https://landscape.io/github/EinsteinCarrey/Shoppinglist/master/landscape.svg?style=flat)](https://landscape.io/github/EinsteinCarrey/Shoppinglist/master)
 [![Coverage Status](https://coveralls.io/repos/github/EinsteinCarrey/Shoppinglist/badge.svg?branch=master)](https://coveralls.io/github/EinsteinCarrey/Shoppinglist?branch=master)
 
+
+
+The Shopping-list app is an application that allows users to record and keep track of things they want to shop or buy. It allows them to keeping track of their shopping carts.
+
+## Getting Started
+
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+
+### How to run this application
+
+##### Install Python
+
+​	You can find the documentation for python **[here](https://www.python.org/)**
+
+​	https://www.python.org/
+
+##### Clone this repository
+
+> https://github.com/EinsteinCarrey/Shoppinglist.git
+
+1. ##### Create a virtual environment
+
+   ​	Use this [**guide**](http://python-guide-pt-br.readthedocs.io/en/latest/dev/virtualenvs/).
+
+   ​	Activate the  virtual environment.
+
+   1. ##### Install project dependencies
+
+     run the command `pip -r install requirements.txt` on the command line
+
+
+
+### Usage
+
+The shopping-list app is still under development. It will soon provided an interactive Graphical User Interface which will be easy to interact with
+
+
+
+## Running the tests
+
+This code has been tested using three common python test libraries `py.test`, `unittest` and `nosetest`.
+
+```python
+# Test in py.test
+# Navigate to the _tests directory
+# run the following command
+py.test
+
+# Samle output
+============================= test session starts =============================
+platform win32 -- Python 3.6.1, pytest-3.2.1, py-1.4.34, pluggy-0.4.0
+rootdir: C:\Project\Directory\shoppinglist\_tests, inifile:
+collected 52 items
+test_app.py ...............
+test_item.py .....
+test_shopping_list.py ................
+test_user.py ................
+
+========================== 52 passed in 0.30 seconds ==========================
+Process finished with exit code 0
+
+```
+
+### Coding style tests
+
+This application complies with the [**PEP8**](https://www.python.org/dev/peps/pep-0008/) convention for Python. To check compliance run the following command in your command line `pep8 .` Remember to exclude your virtual environment from the scope if it is in the project directory.
+
+
+
+## Deployment
+
+This product is still at the development stage. I strongly discourage deploying it on a production server.
+
+## Built With
+
+* [**Flask**](http://flask.pocoo.org/) - An open-source  web microframework for python
+* [**pip**](https://pypi.python.org/pypi/pip) - Python Dependency Manager
+* [**Bootstrap CSS**](http://getbootstrap.com/css/) - User Interface styling
+* [**JQuery**](https://jquery.com/) - HTML document traversal, manipulation and event handling
+
+## Versioning
+
+I use [Semantic Versioning](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags).
+
+## Authors
+
+* [Einstein Njoroge](https://github.com/EinsteinCarrey) - You can view my profile and other works on [GitHub](https://github.com/EinsteinCarrey)
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
+## Acknowledgments
+
+* [**Felix Wambiri**](https://github.com/FelixWambiri)- Code review
+* [**Hound-ci**](https://github.com/houndci-bot) - css-linting and code review
+* **[Coveralls](https://coveralls.io/)** - Test Coverage checker
+
