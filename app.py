@@ -118,7 +118,7 @@ def authenticate_user():
 
         error = login(username, password)
 
-        if error is not None:
+        if error is not True:
             data['error'] = "*" + str(error) + "*"
             return render_template('login.html', data=data)
 
