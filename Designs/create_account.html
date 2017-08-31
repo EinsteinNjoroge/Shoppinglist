@@ -19,24 +19,34 @@
         <h1>Create account</h1>
 
         <div class="form-group">
-            <input type="text" class="form-control" id="name" name="name" value=""
-                   aria-required="true" required placeholder="Your name">
+            <input class="form-control" id="firstname" name="firstname"
+                   value="{{request.form.firstname}}"
+                   aria-required required placeholder="Your Sur Name">
         </div>
 
         <div class="form-group">
-            <input type="text" class="form-control" id="Username" name="username" value=""
-                   aria-required="true" required placeholder="Username eg. JamesDoe">
+            <input class="form-control" id="lastname" name="lastname"
+                   value="{{request.form.lastname}}"
+                   aria-required required placeholder="Your last name">
         </div>
 
         <div class="form-group">
-            <input type="password" class="form-control" id="Password" name="password" value=""
-                   aria-required="true" required placeholder="Password">
+            <input class="form-control" id="Username" name="username"
+                   value="{{request.form.username}}"
+                   aria-required required placeholder="Username eg. JamesDoe">
+        </div>
+
+        <div class="form-group">
+            <input type="password" class="form-control" id="Password" name="password"
+                   value="{{request.form.password}}"
+                   aria-required required placeholder="Password">
         </div>
 
         <br>
         <button class="btn btn-primary" type="submit">Create</button>
         <br>
         <!-- Display error message if there are any -->
+        {{data['error']}}
         <br><br>
         Already have an account? &nbsp;&nbsp;&nbsp;<a href="/login">Sign in</a>
     </form>

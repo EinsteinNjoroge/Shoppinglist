@@ -114,6 +114,12 @@ class TestApp(TestCase):
         self.assertTrue(response.status_code,
                         "Endpoint `/login` should be accessible")
 
+    def test_logout_endpoint_exist(self):
+        # test login endpoint
+        response = self.test_client.get('/signout', content_type='html/text')
+        self.assertTrue(response.status_code,
+                        "Endpoint `/signout` should be accessible")
+
     def test_shopping_list_endpoint_exist(self):
         # test shopping-list redirects if user is not logged in
         response = self.test_client.get('/shopping-list',

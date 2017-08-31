@@ -49,7 +49,7 @@ def login(username, password):
 
         if user_account.password_hash == password:
             global user_logged_in
-            user_logged_in = user_account.id
+            user_logged_in = user_account.username
             return True
 
     return 'Wrong credentials combination'
@@ -97,7 +97,7 @@ def create_user():
         else:
             # log this user in
             login(username, password)
-            return redirect('/shopping_list')
+            return redirect('/shopping-list')
 
 
 @flask_app.route('/login', methods=['POST', 'GET'])
@@ -126,6 +126,12 @@ def authenticate_user():
             return redirect('/shopping-list')
 
 
+@flask_app.route('/signout', methods=['GET'])
+def end_session():
+    signout()
+    return redirect('/login')
+
+
 @flask_app.route('/shopping-list', methods=['GET'])
 def view_shopping_list():
 
@@ -139,7 +145,7 @@ def view_shopping_list():
     data['current_users_shopping_lists'] = []
 
     # check if current user has any shopping_lists
-    if len(user_logged_in.shopping_lists) > 0:
+    if len(user_accounts[user_logged_in].shopping_lists) > 0:
         # get shopping_lists owned by current user
         current_users_shopping_lists = user_logged_in.shopping_lists
         data['current_users_shopping_lists'] = current_users_shopping_lists
@@ -147,4 +153,4 @@ def view_shopping_list():
     return render_template('shopping-list.html', data=data)
 
 if __name__ == "__main__":
-    flask_app.run()
+    flask_app.run(debug=True)
