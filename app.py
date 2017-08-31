@@ -81,6 +81,7 @@ def index():
 
 @flask_app.route('/signup', methods=['POST', 'GET'])
 def create_user():
+
     if user_logged_in is not None:
         return redirect('/shopping-list')
 
@@ -106,6 +107,30 @@ def create_user():
             login(username, password)
             return redirect('/shopping_list')
 
+
+@flask_app.route('/login', methods=['POST', 'GET'])
+def authenticate_user():
+    if user_logged_in is not None:
+        return redirect('/shopping-list')
+
+    data = {'host_url': request.host_url}
+
+    if request.method == 'GET':
+        return render_template('login.html', data=data)
+
+    if request.method == 'POST':
+
+        password = request.form['password']
+        username = request.form['username']
+
+        error = login(username, password)
+
+        if error is not None:
+            data['error'] = "*" + str(error) + "*"
+            return render_template('login.html', data=data)
+
+        else:
+            return redirect('/shopping-list')
 
 if __name__ == "__main__":
     flask_app.run(debug=True)
