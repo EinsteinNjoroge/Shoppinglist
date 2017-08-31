@@ -37,12 +37,33 @@ These instructions will get you a copy of the project up and running on your loc
      run the command `pip -r install requirements.txt` on the command line
 
 
+##### Run the server
+
+> `python app.py`
+
+##### Access the server on a browser
+
+Open a browser and access **[this location](http://127.0.0.1:5000/)**.
+
+> [http://127.0.0.1:5000/](http://127.0.0.1:5000/)
+
+​
 
 ### Usage
 
-The shopping-list app is still under development. It will soon provided an interactive Graphical User Interface which will be easy to interact with
+The shopping-list app provides an interactive Graphical User Interface which is easy to interact with
 
+##### User create a user account
 
+![Sign Up](https://raw.githubusercontent.com/EinsteinCarrey/Shoppinglist/Designs/screenshots/signup-screen.png)
+
+##### User can now login to the account
+
+![Login](https://raw.githubusercontent.com/EinsteinCarrey/Shoppinglist/Designs/screenshots/login-screen.png)
+
+##### User can signout
+
+![Sign-out](https://raw.githubusercontent.com/EinsteinCarrey/Shoppinglist/Designs/screenshots/signout.png)
 
 ## Running the tests
 
