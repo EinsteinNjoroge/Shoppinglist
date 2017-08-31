@@ -7,6 +7,7 @@ class TestApp(TestCase):
         self.app = app
         self.username = "newuser"
         self.pword = "password123"
+        self.test_client = app.flask_app.test_client(self)
 
     def tearDown(self):
         self.app = None
@@ -93,3 +94,31 @@ class TestApp(TestCase):
         self.app.login(self.username, self.pword)
         self.app.signout()
         self.assertTrue(self.app.user_logged_in is None)
+
+    ''' Tests for flasks endpoints  '''
+
+    def test_end_index_points_exist(self):
+        # test default endpoint '/'
+        response = self.test_client.get('/', content_type='html/text')
+        self.assertTrue(response.status_code == 302,
+                        "Endpoint `/` should be accessible")
+
+    def test_end_signup_points_exist(self):
+        # test signup endpoint
+        response = self.test_client.get('/signup', content_type='html/text')
+        self.assertTrue(response.status_code == 200,
+                        "Endpoint `/signup` should be accessible")
+
+    def test_end_login_points_exist(self):
+        # test login endpoint
+        response = self.test_client.get('/login', content_type='html/text')
+        self.assertTrue(response.status_code == 200,
+                        "Endpoint `/login` should be accessible")
+
+    def test_end_shopping_list_endpoints_exist(self):
+        # test shopping-list redirects if user is not logged in
+        response = self.test_client.get('/shopping-list',
+                                        content_type='html/text')
+        self.assertTrue(response.status_code == 302,
+                        "Endpoint `/shopping-list` should be redirect if user" +
+                        " is not logged in")
