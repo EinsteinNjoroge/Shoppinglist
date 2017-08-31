@@ -1,4 +1,5 @@
 from classes.user import User
+from classes import shopping_list
 import time
 from flask import Flask
 from flask import request
@@ -110,6 +111,7 @@ def create_user():
 
 @flask_app.route('/login', methods=['POST', 'GET'])
 def authenticate_user():
+
     if user_logged_in is not None:
         return redirect('/shopping-list')
 
@@ -131,6 +133,25 @@ def authenticate_user():
 
         else:
             return redirect('/shopping-list')
+
+
+@flask_app.route('/shopping_list', methods=['GET'])
+def view_shopping_list():
+    # assert user is logged in
+    if user_logged_in is None:
+        return redirect('/login')
+
+    data = dict()
+    data['host_url'] = request.host_url
+    data['current_users_shopping_lists'] = []
+
+    # check if current user has any shopping_lists
+    if len(user_logged_in.shopping_lists) > 0:
+        # get shopping_lists owned by current user
+        current_users_shopping_lists = user_logged_in.shopping_lists
+        data['current_users_shopping_lists'] = current_users_shopping_lists
+
+    return render_template('shopping_list.html', data=data)
 
 if __name__ == "__main__":
     flask_app.run(debug=True)
