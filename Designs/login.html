@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <base href="">
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="assets/css/custom_stylesheet.css">
-    <title>Login to your ShoppingList account</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/custom_stylesheet.min.css">
+    <title>Login to your shopping-list account</title>
     <style>
         body {
             background-image: url("assets/images/background-1.jpg");
@@ -12,16 +15,24 @@
 </head>
 <body>
 <div class="mid-right">
-    <form>
+    <form method="post" action="">
         <h1>Login to your account</h1>
-        <input type="text" name="username" placeholder="Username">
-        <input type="password" name="password" placeholder="Password">
+        <div class="form-group">
+            <input type="text" class="form-control" id="Username" value=""
+                   aria-required="true" required name="username" placeholder="Username">
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" id="Password" value=""
+                   aria-required="true" required name="password" placeholder="Password">
+        </div>
         <br>
-        <button type="submit">Login</button>
-        <br><br><br>
-        Don't have an account? &nbsp;&nbsp;&nbsp;<a href="#">Create one</a>
+        <button class="btn btn-primary" type="submit">Login</button>
+        <br>
+        <!-- Display error message if there are any -->
+        <br><br>
+        Don't have an account? &nbsp;&nbsp;&nbsp;<a href="/signup">Create
+        one</a>
     </form>
 </div>
-
 </body>
 </html>
