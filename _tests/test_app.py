@@ -97,28 +97,27 @@ class TestApp(TestCase):
 
     ''' Tests for flasks endpoints  '''
 
-    def test_end_index_points_exist(self):
+    def test_index_endpoint_exist(self):
         # test default endpoint '/'
         response = self.test_client.get('/', content_type='html/text')
-        self.assertTrue(response.status_code == 302,
-                        "Endpoint `/` should be accessible")
+        self.assertEqual(response.status_code, 302, "Endpoint `/` should be accessible")
 
-    def test_end_signup_points_exist(self):
+    def test_signup_endpoint_exist(self):
         # test signup endpoint
         response = self.test_client.get('/signup', content_type='html/text')
-        self.assertTrue(response.status_code == 200,
+        self.assertTrue(response.status_code,
                         "Endpoint `/signup` should be accessible")
 
-    def test_end_login_points_exist(self):
+    def test_login_endpoint_exist(self):
         # test login endpoint
         response = self.test_client.get('/login', content_type='html/text')
-        self.assertTrue(response.status_code == 200,
+        self.assertTrue(response.status_code,
                         "Endpoint `/login` should be accessible")
 
-    def test_end_shopping_list_endpoints_exist(self):
+    def test_shopping_list_endpoint_exist(self):
         # test shopping-list redirects if user is not logged in
         response = self.test_client.get('/shopping-list',
                                         content_type='html/text')
-        self.assertTrue(response.status_code == 302,
+        self.assertTrue(response.status_code,
                         "Endpoint `/shopping-list` should be redirect if user" +
                         " is not logged in")

@@ -1,5 +1,5 @@
+import classes.shared_funtions_helper
 from classes.shopping_list import ShoppingList
-import app
 
 
 class User(object):
@@ -9,7 +9,7 @@ class User(object):
         self.firstname = firstname
         self.lastname = lastname
         self.shopping_lists = []
-        self.id = app.get_random_id()
+        self.id = classes.shared_funtions_helper.get_random_id()
 
     def create_shopping_list(self, title):
         if title is None or len(title) < 1:

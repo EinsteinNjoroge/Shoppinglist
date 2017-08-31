@@ -1,10 +1,8 @@
-from classes.user import User
-from classes import shopping_list
-import time
 from flask import Flask
-from flask import request
 from flask import redirect
 from flask import render_template
+from flask import request
+from classes.user import User
 
 
 user_accounts = {}
@@ -62,13 +60,6 @@ def signout():
     user_logged_in = None
 
 
-def get_random_id():
-    # generate a random unique integer
-    epoch_time = time.time()
-    random_id = round(float(str(epoch_time)[8:]) * 10000000)
-    return random_id
-
-
 """ Flask application endpoints """
 
 
@@ -82,7 +73,7 @@ def index():
 
 @flask_app.route('/signup', methods=['POST', 'GET'])
 def create_user():
-
+    global user_logged_in
     if user_logged_in is not None:
         return redirect('/shopping-list')
 
@@ -111,7 +102,7 @@ def create_user():
 
 @flask_app.route('/login', methods=['POST', 'GET'])
 def authenticate_user():
-
+    global user_logged_in
     if user_logged_in is not None:
         return redirect('/shopping-list')
 
@@ -135,9 +126,11 @@ def authenticate_user():
             return redirect('/shopping-list')
 
 
-@flask_app.route('/shopping_list', methods=['GET'])
+@flask_app.route('/shopping-list', methods=['GET'])
 def view_shopping_list():
+
     # assert user is logged in
+    global user_logged_in
     if user_logged_in is None:
         return redirect('/login')
 
@@ -151,8 +144,7 @@ def view_shopping_list():
         current_users_shopping_lists = user_logged_in.shopping_lists
         data['current_users_shopping_lists'] = current_users_shopping_lists
 
-    return render_template('shopping_list.html', data=data)
+    return render_template('shopping-list.html', data=data)
 
 if __name__ == "__main__":
-    flask_app.run(debug=True)
-
+    flask_app.run()

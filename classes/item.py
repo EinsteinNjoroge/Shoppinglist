@@ -1,10 +1,10 @@
-import app
+import classes.shared_funtions_helper
 
 
 class Item(object):
     def __init__(self, name):
         self.name = name
-        self.id = app.get_random_id()
+        self.id = classes.shared_funtions_helper.get_random_id()
 
     def update(self, name):
         if name is None or len(name) < 1:
