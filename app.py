@@ -1,9 +1,14 @@
 from classes.user import User
 import time
+from flask import Flask
+from flask import request
+from flask import redirect
+from flask import render_template
 
 
 user_accounts = {}
 user_logged_in = None
+flask_app = Flask('ShoppingList', template_folder="Designs", static_folder='Designs/assets')
 
 
 def create_user_account(username=None, password=None, firstname="", lastname=""):
@@ -61,3 +66,18 @@ def get_random_id():
     epoch_time = time.time()
     random_id = round(float(str(epoch_time)[8:]) * 10000000)
     return random_id
+
+
+""" Flask application endpoints """
+
+
+@flask_app.route('/', methods=['GET'])
+def index():
+    if user_logged_in is None:
+        return redirect('/login')
+    else:
+        return redirect('/shopping-list')
+
+
+if __name__ == "__main__":
+    flask_app.run(debug=True)
