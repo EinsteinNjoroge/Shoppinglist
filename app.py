@@ -7,7 +7,6 @@ user_logged_in = None
 
 
 def create_user_account(username=None, password=None, firstname="", lastname=""):
-    global user_accounts
 
     if not isinstance(password, str):
         return 'Password provided must be a string'
@@ -27,13 +26,12 @@ def create_user_account(username=None, password=None, firstname="", lastname="")
     if len(password) < 6:
         return 'Password should have at-least 6 characters'
 
+    global user_accounts
     new_user_account = User(username, password, firstname, lastname)
     user_accounts[username] = new_user_account
 
 
 def login(username, password):
-    global user_logged_in
-    global user_accounts
 
     if password is None:
         return 'Password must be provided'
@@ -41,10 +39,12 @@ def login(username, password):
     if username is None:
         return 'Username must be provided'
 
+    global user_accounts
     if username in user_accounts.keys():
         user_account = user_accounts[username]
 
         if user_account.password_hash == password:
+            global user_logged_in
             user_logged_in = user_account.id
             return True
 
@@ -57,7 +57,7 @@ def signout():
 
 
 def get_random_id():
-    # generate a random id for this item
+    # generate a random unique integer
     epoch_time = time.time()
     random_id = round(float(str(epoch_time)[8:]) * 10000000)
     return random_id
