@@ -1,4 +1,4 @@
-import app
+import classes.shared_funtions_helper
 from classes.item import Item
 
 
@@ -6,7 +6,7 @@ class ShoppingList(object):
     def __init__(self, title):
         self.title = title
         self.items = []
-        self.id = app.get_random_id()
+        self.id = classes.shared_funtions_helper.get_random_id()
 
     def add_item(self, item_name):
         if item_name is None or len(item_name) < 1:
