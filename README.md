@@ -65,6 +65,12 @@ The shopping-list app provides an interactive Graphical User Interface which is 
 
 ![Sign-out](https://raw.githubusercontent.com/EinsteinCarrey/Shoppinglist/flask/Designs/screenshots/signout.png)
 
+##### User can create and view shopping-lists
+
+![Shopping-lists](https://raw.githubusercontent.com/EinsteinCarrey/Shoppinglist/flask/Designs/screenshots/shopping-list.png)
+
+
+
 ## Running the tests
 
 This code has been tested using three common python test libraries `py.test`, `unittest` and `nosetest`.
