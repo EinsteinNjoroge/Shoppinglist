@@ -6,8 +6,7 @@ $(document).ready(function () {
         "info": false,
         columns: [
             {title: "Priority"},
-            {title: "Before I die I wanna.."},
-            {title: "So far I have..."},
+            {title: "When I go to the store, I'll buy.."},
             {title: "Action"}
         ]
     });
@@ -17,9 +16,7 @@ $(document).ready(function () {
         "paging": false,
         "info": false,
         columns: [
-            {title: "Item"},
-            {title: "Completed"},
-            {title: "Action"}
+            {title: "Item"}
         ]
     });
 
@@ -46,14 +43,12 @@ $(document).ready(function () {
             editor = [
                 "<input type=\"hidden\" name=\"identifier\" value=\"" + currentRowID + "\" />",
                 "<textarea name=\"title\">" + values[1] + "</textarea>",
-                "<textarea name=\"progress\">" + values[2] + "</textarea>",
                 "<button class=\"btn btn-primary\">Save</button>"
             ];
         } else if (currentTableID === "shoppingListItemsTable") {
             editor = [
                 "<input type=\"hidden\" name=\"identifier\" value=\"" + currentRowID + "\" />" +
                 "<textarea name=\"title\">" + values[0] + "</textarea>",
-                "<input type=\"checkbox\" name=\"completed\"/>",
                 "<button class=\"btn btn-primary\">Save</button>"
             ];
         }

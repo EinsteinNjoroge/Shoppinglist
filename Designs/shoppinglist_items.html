@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <base href="{{ data['host_url'] }}">
     <meta charset="UTF-8">
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -12,46 +13,72 @@
           href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.2.3/jquery-confirm.min.css">
-    <link rel="stylesheet" href="assets/css/custom_stylesheet.css">
-    <title>My ShoppingList items</title>
+    <link rel="stylesheet" href="assets/css/custom_stylesheet.min.css">
+    <title>My shoppingList items</title>
     <style>
         body {
             background-image: url("assets/images/background-0.jpg");
         }
     </style>
 </head>
-
-
 <body>
 <div class="logout-link">
-    <a href="/signout">Logout</a>
+    <a href="/logout">Logout</a>
 </div>
-
 <div class="mid-center">
-    <div id="ShoppingList_list" class="float-left">
-        <h3>My ShoppingList</h3>
-        <li>Shopping list 1</li>
-        <li>Shopping list 2</li>
-        <li>Shopping list 3</li>
+    <div id="shoppingList_list" class="float-left">
+        <br><br>
+        <h3>My shoppingList</h3>
+        <!-- Display list of all shoppingLists belonging to this user -->
+        {% for shoppingList in data['my_shoppingLists'] %}
+        <li data-ref="\shoppingList\{{ shoppingList.identifier }}">{{
+            shoppingList.title }}
+        </li>
+        {% endfor %}
     </div>
-    <form method="post">
-        <div id="ShoppingListItems" class="float-right">
+    <form class="shoppingList-items-form" method="post"
+          action="/shoppingList/{{ data['current_shoppingList'] }}/update-item">
+        <div id="shoppingListItems" class="float-right">
             <h3 id="listItemHeader"></h3>
             <table width="95%" class="ui celled table"
-                   id="ShoppingListItemsTable">
-                <tr>
-                    <td>Live</td>
-                    <td><input type="checkbox"/></td>
+                   id="shoppingListItemsTable">
+                {% for shoppingList_item in data['my_shoppingList_items'] %}
+                <tr id="{{ shoppingList_item.identifier }}">
+                    <td>
+                        {{ shoppingList_item.title }}
+                    </td>
+                    <td>
+                        <input type="checkbox" {{'checked' if shoppingList_item.completed }}/>
+                    </td>
                     <td>
                         <a class="btn btn-default edit-btn">
                             <i class="fa fa-pencil"></i>
                         </a>
-                        <a class="btn btn-default delete-btn">
+                        <a class="btn btn-default delete-btn"
+                           delete-ref="/shoppingList/{{data['current_shoppingList']}}/delete/{{ shoppingList_item.identifier }}">
                             <i class="fa fa-trash"></i>
                         </a>
                     </td>
                 </tr>
+                {% endfor %}
             </table>
+        </div>
+    </form>
+    <form method="post" action="/shoppingList/{{data['current_shoppingList']}}/create">
+        <div class="col-md-12 center-content">
+            <br>
+            <h4>Add item</h4>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-4">
+            </div>
+            <div class="form-group col-md-6">
+                <input type="text" name="item" class="form-control" value="{{request.form.item}}"
+                       placeholder="New item">
+            </div>
+            <div class="form-group col-md-2">
+                <button class="btn btn-primary">+ Add</button>
+            </div>
         </div>
     </form>
 </div>

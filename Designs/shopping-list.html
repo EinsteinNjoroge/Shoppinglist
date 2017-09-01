@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <base href="{{ data['host_url'] }}">
     <meta charset="UTF-8">
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -13,23 +14,61 @@
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.2.3/jquery-confirm.min.css">
     <link rel="stylesheet" href="assets/css/custom_stylesheet.min.css">
-    <title>My ShoppingList</title>
+    <title>My shoppingList</title>
     <style>
         body {
             background-image: url("assets/images/background-0.jpg");
         }
     </style>
 </head>
-
 <body>
 <div class="logout-link">
-    <a href="/signout">Logout</a>
+    <a href="/logout">Logout</a>
 </div>
 <div class="mid-center">
-    <form>
-        <h1>My ShoppingList</h1>
-        <table width="100%" class="mdl-data-table" id="ShoppingListTable"></table>
-    </form>
+    <h3>My shoppingList</h3>
+    <div id="shoppingList">
+        <form method="post" action="/update/shoppingList">
+            <br><br>
+            <table class="ui celled table" id="shoppingListTable">
+
+                <!-- loop through my shoppingLists creating a table row for each shoppingList  -->
+                {% for shoppingList in data['my_shoppingLists'] %}
+                <tr id="{{ shoppingList.identifier }}">
+                    <td>{{ shoppingList.priority }}</td>
+                    <td class="reference-links"
+                        data-ref="\shoppingList\{{ shoppingList.identifier }}">
+                        {{ shoppingList.title }}
+                    </td>
+                    <td>{{ shoppingList.progress }}</td>
+                    <td>
+                        <a class="btn btn-default edit-btn">
+                            <i class="fa fa-pencil"></i>
+                        </a>
+                        <a class="btn btn-default delete-btn"
+                           delete-ref="/delete/shoppingList/{{ shoppingList.identifier }}">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+
+            </table>
+        </form>
+        <br>
+        <br>
+        <form method="post" action="/create/shoppingList" class="add-shoppingList">
+            <h4>Add shoppingList</h4>
+            <div class="form-group col-md-10">
+                <input type="text" name="shoppingList" class="form-control"
+                       value="{{request.form.shoppingList}}"
+                       aria-required="true" required placeholder="New shoppingList">
+            </div>
+            <div class="form-group col-md-2">
+                <button class="btn btn-primary">+ Add</button>
+            </div>
+        </form>
+    </div>
 </div>
 
 <script type="text/javascript"
@@ -43,6 +82,5 @@
 <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.2.3/jquery-confirm.min.js"></script>
 <script type="text/javascript" src="assets/js/custom_javascript.js"></script>
-
 </body>
 </html>
