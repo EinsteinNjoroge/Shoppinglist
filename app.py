@@ -3,6 +3,7 @@ from flask import redirect
 from flask import render_template
 from flask import request
 from classes.user import User
+from classes.shopping_list import ShoppingList
 
 
 user_accounts = {}
@@ -58,6 +59,10 @@ def login(username, password):
 def signout():
     global user_logged_in
     user_logged_in = None
+
+
+def current_user_has_shopping_lists():
+    return len(user_accounts[user_logged_in].shopping_lists) > 0
 
 
 """ Flask application endpoints """
@@ -145,12 +150,35 @@ def view_shopping_list():
     data['current_users_shopping_lists'] = []
 
     # check if current user has any shopping_lists
-    if len(user_accounts[user_logged_in].shopping_lists) > 0:
+    if current_user_has_shopping_lists():
         # get shopping_lists owned by current user
-        current_users_shopping_lists = user_logged_in.shopping_lists
+        current_users_shopping_list_objects = user_accounts[user_logged_in].shopping_lists
+
+        count = 1
+        current_users_shopping_lists = []
+        for shopping_list in current_users_shopping_list_objects:
+            shopping_list_data = dict()
+            shopping_list_data["title"] = shopping_list.title
+            shopping_list_data["priority"] = count
+            shopping_list_data["id"] = shopping_list.id
+
+            current_users_shopping_lists.append(shopping_list_data)
+            count += 1
+
         data['current_users_shopping_lists'] = current_users_shopping_lists
 
     return render_template('shopping-list.html', data=data)
+
+
+@flask_app.route('/create/shoppinglist', methods=['POST'])
+def create_shoppinglist():
+    shoppinglist = request.form['shoppinglist']
+    new_shoppinglist = ShoppingList(shoppinglist)
+
+    # add new shoppinglist to collection of shoppinglists owned by current user
+    user_accounts[user_logged_in].shopping_lists.append(new_shoppinglist)
+
+    return redirect('/shopping-list')
 
 if __name__ == "__main__":
     flask_app.run(debug=True)

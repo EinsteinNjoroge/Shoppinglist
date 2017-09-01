@@ -14,7 +14,7 @@
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.2.3/jquery-confirm.min.css">
     <link rel="stylesheet" href="assets/css/custom_stylesheet.min.css">
-    <title>My shoppingList</title>
+    <title>My shoppinglist</title>
     <style>
         body {
             background-image: url("assets/images/background-0.jpg");
@@ -26,27 +26,26 @@
     <a href="/logout">Logout</a>
 </div>
 <div class="mid-center">
-    <h3>My shoppingList</h3>
-    <div id="shoppingList">
-        <form method="post" action="/update/shoppingList">
+    <h3>My shoppinglist</h3>
+    <div id="shoppinglist">
+        <form method="post" action="/update/shoppinglist">
             <br><br>
-            <table class="ui celled table" id="shoppingListTable">
+            <table class="ui celled table" id="shoppinglistTable">
 
-                <!-- loop through my shoppingLists creating a table row for each shoppingList  -->
-                {% for shoppingList in data['my_shoppingLists'] %}
-                <tr id="{{ shoppingList.identifier }}">
-                    <td>{{ shoppingList.priority }}</td>
+                <!-- loop through my shoppinglists creating a table row for each shoppinglist  -->
+                {% for shoppinglist in data['current_users_shopping_lists'] %}
+                <tr id="{{ shoppinglist.identifier }}">
+                    <td>{{ shoppinglist.priority }}</td>
                     <td class="reference-links"
-                        data-ref="\shoppingList\{{ shoppingList.identifier }}">
-                        {{ shoppingList.title }}
+                        data-ref="\shoppinglist\{{ shoppinglist.identifier }}">
+                        {{ shoppinglist.title }}
                     </td>
-                    <td>{{ shoppingList.progress }}</td>
                     <td>
                         <a class="btn btn-default edit-btn">
                             <i class="fa fa-pencil"></i>
                         </a>
                         <a class="btn btn-default delete-btn"
-                           delete-ref="/delete/shoppingList/{{ shoppingList.identifier }}">
+                           delete-ref="/delete/shoppinglist/{{ shoppinglist.identifier }}">
                             <i class="fa fa-trash"></i>
                         </a>
                     </td>
@@ -57,12 +56,12 @@
         </form>
         <br>
         <br>
-        <form method="post" action="/create/shoppingList" class="add-shoppingList">
-            <h4>Add shoppingList</h4>
+        <form method="post" action="/create/shoppinglist" class="add-shoppinglist">
+            <h4>Add shoppinglist</h4>
             <div class="form-group col-md-10">
-                <input type="text" name="shoppingList" class="form-control"
-                       value="{{request.form.shoppingList}}"
-                       aria-required="true" required placeholder="New shoppingList">
+                <input type="text" name="shoppinglist" class="form-control"
+                       value="{{request.form.shoppinglist}}"
+                       aria-required="true" required placeholder="New shoppinglist">
             </div>
             <div class="form-group col-md-2">
                 <button class="btn btn-primary">+ Add</button>

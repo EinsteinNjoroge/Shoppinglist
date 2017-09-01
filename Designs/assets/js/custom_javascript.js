@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
-    // initialize jquery datatable on the shoppingList
-    var shoppingListTable = $("#shoppingListTable").DataTable({
+    // initialize jquery datatable on the shoppinglist
+    var shoppinglistTable = $("#shoppinglistTable").DataTable({
         "paging": false,
         "info": false,
         columns: [
@@ -11,8 +11,8 @@ $(document).ready(function () {
         ]
     });
 
-    // initialize jquery datatable on shoppingList items
-    var shoppingListItemsTable = $("#shoppingListItemsTable").DataTable({
+    // initialize jquery datatable on shoppinglist items
+    var shoppinglistItemsTable = $("#shoppinglistItemsTable").DataTable({
         "paging": false,
         "info": false,
         columns: [
@@ -39,13 +39,13 @@ $(document).ready(function () {
 
         // define an editor for each datatable
         var editor = null;
-        if (currentTableID === "shoppingListTable") {
+        if (currentTableID === "shoppinglistTable") {
             editor = [
                 "<input type=\"hidden\" name=\"identifier\" value=\"" + currentRowID + "\" />",
                 "<textarea name=\"title\">" + values[1] + "</textarea>",
                 "<button class=\"btn btn-primary\">Save</button>"
             ];
-        } else if (currentTableID === "shoppingListItemsTable") {
+        } else if (currentTableID === "shoppinglistItemsTable") {
             editor = [
                 "<input type=\"hidden\" name=\"identifier\" value=\"" + currentRowID + "\" />" +
                 "<textarea name=\"title\">" + values[0] + "</textarea>",
