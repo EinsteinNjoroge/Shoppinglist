@@ -55,15 +55,15 @@ The shopping-list app provides an interactive Graphical User Interface which is 
 
 ##### User create a user account
 
-![Sign Up](https://raw.githubusercontent.com/EinsteinCarrey/Shoppinglist/Designs/screenshots/signup-screen.png)
+![Sign Up](https://raw.githubusercontent.com/EinsteinCarrey/Shoppinglist/flask/Designs/screenshots/signup-screen.png)
 
 ##### User can now login to the account
 
-![Login](https://raw.githubusercontent.com/EinsteinCarrey/Shoppinglist/Designs/screenshots/login-screen.png)
+![Login](https://raw.githubusercontent.com/EinsteinCarrey/Shoppinglist/flask/Designs/screenshots/login-screen.png)
 
 ##### User can signout
 
-![Sign-out](https://raw.githubusercontent.com/EinsteinCarrey/Shoppinglist/Designs/screenshots/signout.png)
+![Sign-out](https://raw.githubusercontent.com/EinsteinCarrey/Shoppinglist/flask/Designs/screenshots/signout.png)
 
 ## Running the tests
 
