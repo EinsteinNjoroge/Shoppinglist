@@ -196,6 +196,24 @@ def view_shopping_list(return_type=None):
     return render_template('shopping-list.html', data=data)
 
 
+@flask_app.route('/update/shopping-list', methods=['POST'])
+def update_shoppinglist():
+    identifier = request.form['id']
+    title = request.form['title']
+
+    # check if current user has any shoppinglists
+    if current_user_has_shopping_lists():
+        # get shoppinglists owned by current user
+        my_shoppinglists = user_accounts[user_logged_in].shopping_lists
+
+    for shoppinglist in my_shoppinglists:
+        if str(shoppinglist.id) == identifier:
+            shoppinglist.update(title)
+            break
+
+    return redirect('/shopping-list')
+
+
 @flask_app.route('/shopping-list/<shoppinglist_id>', methods=['GET'])
 def view_shoppinglist_items(shoppinglist_id):
     data = dict()

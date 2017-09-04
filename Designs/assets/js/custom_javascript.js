@@ -41,14 +41,14 @@ $(document).ready(function () {
         var editor = null;
         if (currentTableID === "shoppinglistTable") {
             editor = [
-                "<input type=\"hidden\" name=\"identifier\" value=\"" + currentRowID + "\" />",
+                "<input type=\"hidden\" name=\"id\" value=\"" + currentRowID + "\" />",
                 "<textarea name=\"title\">" + values[1] + "</textarea>",
                 "<button class=\"btn btn-primary\">Save</button>"
             ];
         } else if (currentTableID === "shoppinglistItemsTable") {
             editor = [
-                "<input type=\"hidden\" name=\"identifier\" value=\"" + currentRowID + "\" />" +
-                "<textarea name=\"title\">" + values[0] + "</textarea>",
+                "<input type=\"hidden\" name=\"id\" value=\"" + currentRowID + "\" />" +
+                "<textarea name=\"name\">" + values[0] + "</textarea>",
                 "<button class=\"btn btn-primary\">Save</button>"
             ];
         }
