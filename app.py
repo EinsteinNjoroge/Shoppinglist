@@ -66,17 +66,15 @@ def current_user_has_shopping_lists():
     return len(user_accounts[user_logged_in].shopping_lists) > 0
 
 
-def shopping_list_belongs_to_current_user(shopping_list_id):
-    shopping_list_belongs_to_this_user = False
-    my_shoppinglists = view_shopping_list('raw')['current_users_shopping_lists']
+def get_shopping_list(shopping_list_id):
+    # check if current user has any shoppinglists
+    if current_user_has_shopping_lists():
 
-    # get items in selected shopping_lists
-    for shoppinglist in my_shoppinglists:
-        if str(shoppinglist['id']) == shopping_list_id:
-            shopping_list_belongs_to_this_user = True
-            break
+        # get shoppinglists owned by current user
+        my_shoppinglists = user_accounts[user_logged_in].shopping_lists
 
-    return shopping_list_belongs_to_this_user
+        if shopping_list_id in my_shoppinglists.keys():
+            return my_shoppinglists[shopping_list_id]
 
 
 """ Flask application endpoints """
@@ -157,7 +155,7 @@ def create_shoppinglist():
     new_shoppinglist = ShoppingList(shoppinglist)
 
     # add new shoppinglist to collection of shoppinglists owned by current user
-    user_accounts[user_logged_in].shopping_lists.append(new_shoppinglist)
+    user_accounts[user_logged_in].shopping_lists[str(new_shoppinglist.id)] = new_shoppinglist
 
     return redirect('/shopping-list')
 
@@ -179,7 +177,7 @@ def view_shopping_list(return_type=None):
         # get shopping_lists owned by current user
         count = 1
         current_users_shopping_lists = []
-        for shopping_list in user_accounts[user_logged_in].shopping_lists:
+        for shopping_list in user_accounts[user_logged_in].shopping_lists.values():
             shopping_list_data = classes.shared_funtions_helper.get_attributes_from_class(
                 shopping_list
             )
@@ -201,17 +199,36 @@ def update_shoppinglist():
     identifier = request.form['id']
     title = request.form['title']
 
-    # check if current user has any shoppinglists
-    if current_user_has_shopping_lists():
-        # get shoppinglists owned by current user
-        my_shoppinglists = user_accounts[user_logged_in].shopping_lists
-
-    for shoppinglist in my_shoppinglists:
-        if str(shoppinglist.id) == identifier:
-            shoppinglist.update(title)
-            break
+    shoppinglist = get_shopping_list(identifier)
+    if shoppinglist is not None:
+        shoppinglist.update(title)
 
     return redirect('/shopping-list')
+
+
+@flask_app.route('/delete/shopping-list/<shoppinglist_id>', methods=['GET'])
+def delete_shoppinglist(shoppinglist_id):
+    shoppinglist = get_shopping_list(shoppinglist_id)
+    if shoppinglist is not None:
+        for shoppinglist in user_accounts[user_logged_in].shopping_lists:
+            if str(shoppinglist.id) == shoppinglist_id:
+                del shoppinglist
+
+    return redirect('/shopping-list')
+
+
+@flask_app.route('/shopping-list/<shoppinglist_id>/create', methods=['POST'])
+def create_shoppinglist_item(shoppinglist_id):
+    item_name = request.form['item']
+
+    # check if current user has any shoppinglists
+    if current_user_has_shopping_lists():
+
+        for shoppinglist in user_accounts[user_logged_in].shopping_lists:
+            if str(shoppinglist.id) == shoppinglist_id:
+                break
+
+    return redirect('/shopping-list/' + shoppinglist_id)
 
 
 @flask_app.route('/shopping-list/<shoppinglist_id>', methods=['GET'])
@@ -236,28 +253,10 @@ def view_shoppinglist_items(shoppinglist_id):
                     item_data = classes.shared_funtions_helper.get_attributes_from_class(item)
                     shopping_list_items.append(item_data)
 
-                print(data)
                 data['my_shoppinglist_items'] = shopping_list_items
-                print(data)
-                print(shopping_list_items)
                 break
 
     return render_template('shoppinglist_items.html', data=data)
-
-
-@flask_app.route('/shopping-list/<shoppinglist_id>/create', methods=['POST'])
-def create_shoppinglist_item(shoppinglist_id):
-    item_name = request.form['item']
-
-    # check if current user has any shoppinglists
-    if current_user_has_shopping_lists():
-
-        for shoppinglist in user_accounts[user_logged_in].shopping_lists:
-            if str(shoppinglist.id) == shoppinglist_id:
-                print(shoppinglist.add_item(item_name))
-                break
-
-    return redirect('/shopping-list/' + shoppinglist_id)
 
 
 if __name__ == "__main__":

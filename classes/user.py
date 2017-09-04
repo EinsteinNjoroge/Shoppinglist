@@ -8,7 +8,7 @@ class User(object):
         self.password_hash = password
         self.firstname = firstname
         self.lastname = lastname
-        self.shopping_lists = []
+        self.shopping_lists = dict()
         self.id = classes.shared_funtions_helper.get_random_id()
 
     def create_shopping_list(self, title):
@@ -18,14 +18,15 @@ class User(object):
         if not isinstance(title, str):
             return "shopping list title must be a string"
 
-        for shopping_list in self.shopping_lists:
-            if shopping_list.title == title:
+        for shoppinglist in self.shopping_lists.values():
+            if title.lower() == shoppinglist.title.lower():
                 return "Shopping list " + title + " already exists"
 
         new_list = ShoppingList(title)
-        self.shopping_lists.append(new_list)
 
-        return new_list.id
+        self.shopping_lists[str(new_list.id)] = new_list
+
+        return str(new_list.id)
 
     def remove_shopping_list(self, shopping_list_id):
         if not isinstance(shopping_list_id, int):
@@ -40,7 +41,8 @@ class User(object):
 
     def list_shopping_lists(self):
         list_names = []
-        for shopping_list in self.shopping_lists:
-            list_names.append(shopping_list.title)
+
+        for shoppinglist in self.shopping_lists.values():
+            list_names.append(shoppinglist.title)
 
         return list_names

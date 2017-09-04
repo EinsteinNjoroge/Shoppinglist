@@ -24,8 +24,8 @@ class TestUser(TestCase):
     def test_user_password_hash_is_str(self):
         self.assertIsInstance(self.user.password_hash, str)
 
-    def test_user_shopping_list_is_list(self):
-        self.assertIsInstance(self.user.shopping_lists, list)
+    def test_user_shopping_list_is_dict(self):
+        self.assertIsInstance(self.user.shopping_lists, dict)
 
     def test_create_shopping_list_without_title(self):
         self.assertTrue(self.user.create_shopping_list(None), "shopping list must have a title")
@@ -39,21 +39,21 @@ class TestUser(TestCase):
     def test_create_shopping_list(self):
         # attempt to create a shopping list
         shopping_list_title = "back to school"
-        self.user.create_shopping_list(shopping_list_title)
+        created_shopping_list = self.user.create_shopping_list(shopping_list_title)
 
         self.assertEqual(
-            self.user.shopping_lists[0].title,
             shopping_list_title,
+            self.user.shopping_lists[created_shopping_list].title,
             msg="Method create_shopping_list should add a ShoppingList object to shopping_lists"
         )
 
-    def test_create_shopping_list_returns_int(self):
+    def test_create_shopping_list_returns_str(self):
         # Create a shopping list
         shopping_list_title = "back to school"
 
         self.assertIsInstance(
             self.user.create_shopping_list(shopping_list_title),
-            int,
+            str,
             msg="Method create_shopping_list should return id of the shopping list created"
         )
 
@@ -70,14 +70,17 @@ class TestUser(TestCase):
     def test_list_shopping_list_returns_list(self):
         self.assertIsInstance(self.user.list_shopping_lists(), list)
 
-    def test_list_shopping_list(self):
+    def test_list_shopping_lists(self):
         # Create multiple shopping lists
         self.user.create_shopping_list("Test shopping list")
         self.user.create_shopping_list("Test shopping list 2")
         self.user.create_shopping_list("Test shopping list 3")
 
         expected_list = ["Test shopping list", "Test shopping list 2", "Test shopping list 3"]
-        self.assertTrue(set(self.user.list_shopping_lists()) == set(expected_list))
+
+        self.assertTrue(
+            set(self.user.list_shopping_lists()) == set(expected_list)
+        )
 
     def test_remove_shopping_list_invalid_argument(self):
         self.assertEqual(
