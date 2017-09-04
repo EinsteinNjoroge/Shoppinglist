@@ -76,24 +76,17 @@ The shopping-list app provides an interactive Graphical User Interface which is 
 This code has been tested using three common python test libraries `py.test`, `unittest` and `nosetest`.
 
 ```python
-# Test in py.test
-# Navigate to the _tests directory
+# Testing in nosetest
+# Navigate to the project root directory
 # run the following command
-py.test
+nosetests _tests
 
-# Samle output
-============================= test session starts =============================
-platform win32 -- Python 3.6.1, pytest-3.2.1, py-1.4.34, pluggy-0.4.0
-rootdir: C:\Project\Directory\shoppinglist\_tests, inifile:
-collected 52 items
-test_app.py ...............
-test_item.py .....
-test_shopping_list.py ................
-test_user.py ................
+# Sample output
+.........................................................
+----------------------------------------------------------------------
+Ran 57 tests in 0.459s
 
-========================== 52 passed in 0.30 seconds ==========================
-Process finished with exit code 0
-
+OK
 ```
 
 ### Coding style tests
