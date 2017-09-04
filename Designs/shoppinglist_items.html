@@ -28,7 +28,11 @@
 <div class="mid-center">
     <div id="shoppingList_list" class="float-left">
         <br><br>
-        <h3>My shoppingList</h3>
+        <h3>
+            <a href="/shopping-list">
+                My shoppingList
+            </a>
+        </h3>
         <!-- Display list of all shoppingLists belonging to this user -->
         {% for shoppingList in data['my_shoppinglists'] %}
         <li data-ref="\shopping-list\{{ shoppingList.id }}">{{
@@ -37,25 +41,22 @@
         {% endfor %}
     </div>
     <form class="shoppingList-items-form" method="post"
-          action="/shopping-list/{{ data['current_shoppingList'] }}/update-item">
+          action="/shopping-list/{{ data['current_shoppinglist'] }}/update-item">
         <div id="shoppingListItems" class="float-right">
             <h3 id="listItemHeader"></h3>
             <table width="95%" class="ui celled table"
                    id="shoppingListItemsTable">
-                {% for shoppingList_item in data['my_shoppingList_items'] %}
-                <tr id="{{ shoppingList_item.identifier }}">
+                {% for shoppinglist_item in data['my_shoppinglist_items'] %}
+                <tr id="{{ shoppinglist_item.id }}">
                     <td>
-                        {{ shoppingList_item.title }}
-                    </td>
-                    <td>
-                        <input type="checkbox" {{'checked' if shoppingList_item.completed }}/>
+                        {{ shoppinglist_item.name }}
                     </td>
                     <td>
                         <a class="btn btn-default edit-btn">
                             <i class="fa fa-pencil"></i>
                         </a>
                         <a class="btn btn-default delete-btn"
-                           delete-ref="/shoppingList/{{data['current_shoppingList']}}/delete/{{ shoppingList_item.identifier }}">
+                           delete-ref="/shopping-list/{{data['current_shoppinglist']}}/delete/{{ shoppinglist_item.id }}">
                             <i class="fa fa-trash"></i>
                         </a>
                     </td>
@@ -64,7 +65,7 @@
             </table>
         </div>
     </form>
-    <form method="post" action="/shoppingList/{{data['current_shoppingList']}}/create">
+    <form method="post" action="/shopping-list/{{data['current_shoppinglist']}}/create">
         <div class="col-md-12 center-content">
             <br>
             <h4>Add item</h4>

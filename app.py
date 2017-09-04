@@ -66,6 +66,19 @@ def current_user_has_shopping_lists():
     return len(user_accounts[user_logged_in].shopping_lists) > 0
 
 
+def shopping_list_belongs_to_current_user(shopping_list_id):
+    shopping_list_belongs_to_this_user = False
+    my_shoppinglists = view_shopping_list('raw')['current_users_shopping_lists']
+
+    # get items in selected shopping_lists
+    for shoppinglist in my_shoppinglists:
+        if str(shoppinglist['id']) == shopping_list_id:
+            shopping_list_belongs_to_this_user = True
+            break
+
+    return shopping_list_belongs_to_this_user
+
+
 """ Flask application endpoints """
 
 
@@ -205,11 +218,28 @@ def view_shoppinglist_items(shoppinglist_id):
                     item_data = classes.shared_funtions_helper.get_attributes_from_class(item)
                     shopping_list_items.append(item_data)
 
-                data['my_shoppinglist_items'] = shoppinglist['items']
+                print(data)
+                data['my_shoppinglist_items'] = shopping_list_items
+                print(data)
+                print(shopping_list_items)
                 break
 
-    print(data)
     return render_template('shoppinglist_items.html', data=data)
+
+
+@flask_app.route('/shopping-list/<shoppinglist_id>/create', methods=['POST'])
+def create_shoppinglist_item(shoppinglist_id):
+    item_name = request.form['item']
+
+    # check if current user has any shoppinglists
+    if current_user_has_shopping_lists():
+
+        for shoppinglist in user_accounts[user_logged_in].shopping_lists:
+            if str(shoppinglist.id) == shoppinglist_id:
+                print(shoppinglist.add_item(item_name))
+                break
+
+    return redirect('/shopping-list/' + shoppinglist_id)
 
 
 if __name__ == "__main__":
