@@ -4,6 +4,7 @@ from flask import render_template
 from flask import request
 from classes.user import User
 from classes.shopping_list import ShoppingList
+import classes.shared_funtions_helper
 
 
 user_accounts = {}
@@ -149,7 +150,7 @@ def create_shoppinglist():
 
 
 @flask_app.route('/shopping-list', methods=['GET'])
-def view_shopping_list():
+def view_shopping_list(return_type=None):
 
     # assert user is logged in
     global user_logged_in
@@ -163,20 +164,21 @@ def view_shopping_list():
     # check if current user has any shopping_lists
     if current_user_has_shopping_lists():
         # get shopping_lists owned by current user
-        current_users_shopping_list_objects = user_accounts[user_logged_in].shopping_lists
-
         count = 1
         current_users_shopping_lists = []
-        for shopping_list in current_users_shopping_list_objects:
-            shopping_list_data = dict()
-            shopping_list_data["title"] = shopping_list.title
+        for shopping_list in user_accounts[user_logged_in].shopping_lists:
+            shopping_list_data = classes.shared_funtions_helper.get_attributes_from_class(
+                shopping_list
+            )
             shopping_list_data["priority"] = count
-            shopping_list_data["id"] = shopping_list.id
 
             current_users_shopping_lists.append(shopping_list_data)
             count += 1
 
         data['current_users_shopping_lists'] = current_users_shopping_lists
+
+    if return_type == 'raw':
+        return data
 
     return render_template('shopping-list.html', data=data)
 
@@ -191,15 +193,22 @@ def view_shoppinglist_items(shoppinglist_id):
     # check if current user has any shoppinglists
     if current_user_has_shopping_lists():
         # get shoppinglists owned by current user
-        my_shoppinglists = user_accounts[user_logged_in].shopping_lists
+        my_shoppinglists = view_shopping_list('raw')['current_users_shopping_lists']
         data['my_shoppinglists'] = my_shoppinglists
 
-    # get items in selected shopping_lists
-    for shoppinglist in my_shoppinglists:
-        if str(shoppinglist.id) == shoppinglist_id:
-            data['my_shoppinglist_items'] = shoppinglist.items
-            break
+        # get items in selected shopping_lists
+        for shoppinglist in my_shoppinglists:
+            if str(shoppinglist['id']) == shoppinglist_id:
 
+                shopping_list_items = []
+                for item in shoppinglist['items']:
+                    item_data = classes.shared_funtions_helper.get_attributes_from_class(item)
+                    shopping_list_items.append(item_data)
+
+                data['my_shoppinglist_items'] = shoppinglist['items']
+                break
+
+    print(data)
     return render_template('shoppinglist_items.html', data=data)
 
 

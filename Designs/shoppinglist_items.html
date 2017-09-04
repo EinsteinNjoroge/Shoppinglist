@@ -30,14 +30,14 @@
         <br><br>
         <h3>My shoppingList</h3>
         <!-- Display list of all shoppingLists belonging to this user -->
-        {% for shoppingList in data['my_shoppingLists'] %}
-        <li data-ref="\shoppingList\{{ shoppingList.identifier }}">{{
+        {% for shoppingList in data['my_shoppinglists'] %}
+        <li data-ref="\shopping-list\{{ shoppingList.id }}">{{
             shoppingList.title }}
         </li>
         {% endfor %}
     </div>
     <form class="shoppingList-items-form" method="post"
-          action="/shoppingList/{{ data['current_shoppingList'] }}/update-item">
+          action="/shopping-list/{{ data['current_shoppingList'] }}/update-item">
         <div id="shoppingListItems" class="float-right">
             <h3 id="listItemHeader"></h3>
             <table width="95%" class="ui celled table"
