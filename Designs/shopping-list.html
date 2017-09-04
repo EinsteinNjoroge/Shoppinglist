@@ -26,7 +26,7 @@
     <a href="/logout">Logout</a>
 </div>
 <div class="mid-center">
-    <h3>My shoppinglist</h3>
+    <h3>My shopping-lists</h3>
     <div id="shoppinglist">
         <form method="post" action="/update/shoppinglist">
             <br><br>
@@ -34,10 +34,10 @@
 
                 <!-- loop through my shoppinglists creating a table row for each shoppinglist  -->
                 {% for shoppinglist in data['current_users_shopping_lists'] %}
-                <tr id="{{ shoppinglist.identifier }}">
+                <tr id="{{ shoppinglist.id }}">
                     <td>{{ shoppinglist.priority }}</td>
                     <td class="reference-links"
-                        data-ref="\shoppinglist\{{ shoppinglist.identifier }}">
+                        data-ref="\shopping-list\{{ shoppinglist.id }}">
                         {{ shoppinglist.title }}
                     </td>
                     <td>
@@ -45,7 +45,7 @@
                             <i class="fa fa-pencil"></i>
                         </a>
                         <a class="btn btn-default delete-btn"
-                           delete-ref="/delete/shoppinglist/{{ shoppinglist.identifier }}">
+                           delete-ref="/delete/shoppinglist/{{ shoppinglist.id }}">
                             <i class="fa fa-trash"></i>
                         </a>
                     </td>

@@ -131,10 +131,21 @@ def authenticate_user():
             return redirect('/shopping-list')
 
 
-@flask_app.route('/signout', methods=['GET'])
+@flask_app.route('/logout', methods=['GET'])
 def end_session():
     signout()
     return redirect('/login')
+
+
+@flask_app.route('/create/shoppinglist', methods=['POST'])
+def create_shoppinglist():
+    shoppinglist = request.form['shoppinglist']
+    new_shoppinglist = ShoppingList(shoppinglist)
+
+    # add new shoppinglist to collection of shoppinglists owned by current user
+    user_accounts[user_logged_in].shopping_lists.append(new_shoppinglist)
+
+    return redirect('/shopping-list')
 
 
 @flask_app.route('/shopping-list', methods=['GET'])
@@ -170,15 +181,27 @@ def view_shopping_list():
     return render_template('shopping-list.html', data=data)
 
 
-@flask_app.route('/create/shoppinglist', methods=['POST'])
-def create_shoppinglist():
-    shoppinglist = request.form['shoppinglist']
-    new_shoppinglist = ShoppingList(shoppinglist)
+@flask_app.route('/shopping-list/<shoppinglist_id>', methods=['GET'])
+def view_shoppinglist_items(shoppinglist_id):
+    data = dict()
+    data['host_url'] = request.host_url
+    data['current_shoppinglist'] = shoppinglist_id
+    data['my_shoppinglists'] = []
 
-    # add new shoppinglist to collection of shoppinglists owned by current user
-    user_accounts[user_logged_in].shopping_lists.append(new_shoppinglist)
+    # check if current user has any shoppinglists
+    if current_user_has_shopping_lists():
+        # get shoppinglists owned by current user
+        my_shoppinglists = user_accounts[user_logged_in].shopping_lists
+        data['my_shoppinglists'] = my_shoppinglists
 
-    return redirect('/shopping-list')
+    # get items in selected shopping_lists
+    for shoppinglist in my_shoppinglists:
+        if str(shoppinglist.id) == shoppinglist_id:
+            data['my_shoppinglist_items'] = shoppinglist.items
+            break
+
+    return render_template('shoppinglist_items.html', data=data)
+
 
 if __name__ == "__main__":
     flask_app.run(debug=True)
