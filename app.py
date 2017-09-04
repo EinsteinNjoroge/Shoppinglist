@@ -210,9 +210,7 @@ def update_shoppinglist():
 def delete_shoppinglist(shoppinglist_id):
     shoppinglist = get_shopping_list(shoppinglist_id)
     if shoppinglist is not None:
-        for shoppinglist in user_accounts[user_logged_in].shopping_lists:
-            if str(shoppinglist.id) == shoppinglist_id:
-                del shoppinglist
+        del user_accounts[user_logged_in].shopping_lists[shoppinglist_id]
 
     return redirect('/shopping-list')
 
