@@ -2,10 +2,10 @@ from flask import Flask
 from flask import redirect
 from flask import render_template
 from flask import request
-from classes.user import User
-from classes.shopping_list import ShoppingList
-import classes.shared_funtions_helper
 
+import global_functions
+from classes.shopping_list import ShoppingList
+from classes.user import User
 
 user_accounts = {}
 user_logged_in = None
@@ -169,7 +169,7 @@ def view_shopping_list(return_type=None):
         count = 1
         current_users_shopping_lists = []
         for shopping_list in user_accounts[user_logged_in].shopping_lists.values():
-            shopping_list_data = classes.shared_funtions_helper.get_attributes_from_class(
+            shopping_list_data = global_functions.get_attributes_from_class(
                 shopping_list
             )
 
@@ -237,7 +237,7 @@ def view_shoppinglist_items(shoppinglist_id):
         data['current_shoppinglists_title'] = shoppinglist.title
 
         for item in shoppinglist.items:
-            item_data = classes.shared_funtions_helper.get_attributes_from_class(item)
+            item_data = global_functions.get_attributes_from_class(item)
             shopping_list_items.append(item_data)
 
         data['my_shoppinglist_items'] = shopping_list_items
