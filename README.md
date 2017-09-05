@@ -47,7 +47,13 @@ Open a browser and access **[this location](http://127.0.0.1:5000/)**.
 
 > [http://127.0.0.1:5000/](http://127.0.0.1:5000/)
 
-​
+
+
+### **Deployed on Heroku** 
+
+[https://einstein-shoppinglist.herokuapp.com](https://einstein-shoppinglist.herokuapp.com)
+
+
 
 ### Usage
 
