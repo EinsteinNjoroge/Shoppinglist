@@ -222,7 +222,9 @@ def create_shoppinglist_item(shoppinglist_id):
 
     shoppinglist = get_shopping_list(shoppinglist_id)
     if shoppinglist is not None:
+        print(shoppinglist.items)
         shoppinglist.add_item(item_name)
+        print(shoppinglist.items)
 
     return redirect('/shopping-list/' + shoppinglist_id)
 
@@ -241,14 +243,14 @@ def view_shoppinglist_items(shoppinglist_id):
         data['my_shoppinglists'] = my_shoppinglists
 
         # get items in selected shopping_lists
-        for shoppinglist in my_shoppinglists:
-            if str(shoppinglist['id']) == shoppinglist_id:
-                shopping_list_items = []
-                for item in shoppinglist['items']:
-                    item_data = classes.shared_funtions_helper.get_attributes_from_class(item)
-                    shopping_list_items.append(item_data)
-                data['my_shoppinglist_items'] = shopping_list_items
-                break
+        shopping_list_items = []
+        shoppinglist = get_shopping_list(shoppinglist_id)
+
+        for item in shoppinglist.items:
+            item_data = classes.shared_funtions_helper.get_attributes_from_class(item)
+            shopping_list_items.append(item_data)
+
+        data['my_shoppinglist_items'] = shopping_list_items
 
     return render_template('shoppinglist_items.html', data=data)
 
