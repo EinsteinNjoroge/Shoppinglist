@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
     // initialize jquery datatable on the shoppinglist
-    var shoppinglistTable = $("#shoppinglistTable").DataTable({
+    $("#shoppinglistTable").DataTable({
         "paging": false,
         "info": false,
         columns: [
@@ -12,7 +12,7 @@ $(document).ready(function () {
     });
 
     // initialize jquery datatable on shoppinglist items
-    var shoppinglistItemsTable = $("#shoppingListItemsTable").DataTable({
+    $("#shoppingListItemsTable").DataTable({
         "paging": false,
         "info": false,
         columns: [
@@ -22,24 +22,24 @@ $(document).ready(function () {
     });
 
     // initialize click listener on edit button
-    var editBtn = $(".edit-btn");
+    let editBtn = $(".edit-btn");
     editBtn.click(function () {
-        var currentRow = $(this).parents("tr");
+        let currentRow = $(this).parents("tr");
 
         // remove event listeners on this row
         $(this).parents("tr").find("[data-ref]").off();
 
         // get id for the parent row and parent table
-        var currentRowID = $(this).parents("tr").attr("id");
-        var currentTable = $(this).parents("table");
-        var currentTableID = $(currentTable).attr("id");
+        let currentRowID = $(this).parents("tr").attr("id");
+        let currentTable = $(this).parents("table");
+        let currentTableID = $(currentTable).attr("id");
 
         // get data values from this row
-        var currentTableRow = $("#" + currentTableID).DataTable().row(currentRow);
-        var values = currentTableRow.data();
+        let currentTableRow = $("#" + currentTableID).DataTable().row(currentRow);
+        let values = currentTableRow.data();
 
         // define an editor for each datatable
-        var editor = null;
+        let editor = null;
         if (currentTableID === "shoppinglistTable") {
             editor = [
                 "<input type=\"hidden\" name=\"id\" value=\"" + currentRowID + "\" />",
@@ -59,9 +59,9 @@ $(document).ready(function () {
     });
 
     // initialize click listener on delete button
-    var deleteBtn = $(".delete-btn");
+    let deleteBtn = $(".delete-btn");
     deleteBtn.click(function () {
-        var referenceLink = $(this).attr("delete-ref");
+        let referenceLink = $(this).attr("delete-ref");
 
         // PopUp a confirmation dialog
         $.confirm({
@@ -70,22 +70,19 @@ $(document).ready(function () {
             buttons: {
                 remove: {
                     btnClass: "btn-danger",
-                    action: function () {
-                        window.location.href = referenceLink
+                    action() {
+                        window.location.href = referenceLink;
                     }
                 },
                 cancel: {
-                    btnClass: "btn-blue",
-                    action: function () {
-                        // do nothing
-                    }
+                    btnClass: "btn-blue"
                 }
             }
         });
     });
 
     // initialize click listener on delete elements with attribute `data-ref`
-    var referenceLink = $("[data-ref]");
+    let referenceLink = $("[data-ref]");
     referenceLink.click(function () {
 
         // redirect to new url
