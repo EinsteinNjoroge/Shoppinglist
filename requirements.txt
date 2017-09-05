@@ -37,6 +37,7 @@ pbr==3.0.1
 pep8==1.7.0
 py==1.4.34
 pycparser==2.18
+PyGreSQL==5.0.4
 pylint==1.7.1
 pyOpenSSL==17.2.0
 pytest==3.2.1

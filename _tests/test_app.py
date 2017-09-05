@@ -1,5 +1,6 @@
 from unittest import TestCase
 import app
+from app import flask_app
 
 
 class TestApp(TestCase):
@@ -7,10 +8,14 @@ class TestApp(TestCase):
         self.app = app
         self.username = "newuser"
         self.pword = "password123"
-        self.test_client = app.flask_app.test_client(self)
+        self.test_client_app = flask_app.test_client()
+        self.test_client_app.testing = True
 
     def tearDown(self):
         self.app = None
+        self.username = None
+        self.pword = None
+        self.test_client_app = None
 
     def test_user_accounts_is_dict(self):
         self.assertIsInstance(self.app.user_accounts, dict)
@@ -99,25 +104,17 @@ class TestApp(TestCase):
 
     def test_index_endpoint_exist(self):
         # test default endpoint '/'
-        response = self.test_client.get('/', content_type='html/text')
-        self.assertEqual(response.status_code, 302, "Endpoint `/` should be accessible")
-
-    def test_signup_endpoint_exist(self):
-        # test signup endpoint
-        response = self.test_client.get('/signup', content_type='html/text')
-        self.assertTrue(response.status_code,
-                        "Endpoint `/signup` should be accessible")
+        response = self.test_client_app.get('/', content_type='html/text')
+        self.assertEqual(response.status_code, 302)
 
     def test_login_endpoint_exist(self):
-        # test login endpoint
-        response = self.test_client.get('/login', content_type='html/text')
-        self.assertTrue(response.status_code,
-                        "Endpoint `/login` should be accessible")
+        response = self.test_client_app.get('/login', content_type='html/text')
+        self.assertEqual(response.status_code, 302)
+
+    def test_logout_endpoint_exist(self):
+        response = self.test_client_app.get('/logout', content_type='html/text')
+        self.assertEqual(response.status_code, 302)
 
     def test_shopping_list_endpoint_exist(self):
-        # test shopping-list redirects if user is not logged in
-        response = self.test_client.get('/shopping-list',
-                                        content_type='html/text')
-        self.assertTrue(response.status_code,
-                        "Endpoint `/shopping-list` should be redirect if user" +
-                        " is not logged in")
+        response = self.test_client_app.get('/shopping-list', content_type='html/text')
+        self.assertEqual(response.status_code, 302)

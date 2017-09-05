@@ -21,7 +21,7 @@ table tr:hover {
 
 }
 
-.add-bucketlist {
+.add-shoppingList {
     width: 80%;
     margin: auto;
 }
@@ -85,16 +85,16 @@ table tr:hover {
     padding: 10px;
 }
 
-#bucketListTable {
+#shoppingListTable {
     margin-left: auto;
     width: 98%;
 }
 
-#bucketListItemsTable {
+#shoppingListItemsTable {
     margin-left: auto;
 }
 
-.bucketlist-items-form {
+.shoppingList-items-form {
     padding-top: 60px;
 }
 

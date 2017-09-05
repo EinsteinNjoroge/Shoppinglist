@@ -1,4 +1,4 @@
-import classes.shared_funtions_helper
+import global_functions
 from classes.item import Item
 
 
@@ -6,7 +6,7 @@ class ShoppingList(object):
     def __init__(self, title):
         self.title = title
         self.items = []
-        self.id = classes.shared_funtions_helper.get_random_id()
+        self.id = global_functions.get_random_id()
 
     def add_item(self, item_name):
         if item_name is None or len(item_name) < 1:
@@ -36,11 +36,13 @@ class ShoppingList(object):
     def remove_item(self, item_id):
         if not isinstance(item_id, int):
             return "Item id must be an Integer"
-
+        count = 0
         for item in self.items:
-            if item.id == item_id:
+            if str(item.id) == str(item_id):
+                self.items.pop(count)
                 del item
                 return True
+        count += 1
 
         return "Item does not exist"
 

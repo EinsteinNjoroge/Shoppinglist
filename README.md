@@ -37,10 +37,43 @@ These instructions will get you a copy of the project up and running on your loc
      run the command `pip -r install requirements.txt` on the command line
 
 
+##### Run the server
+
+> `python app.py`
+
+##### Access the server on a browser
+
+Open a browser and access **[this location](http://127.0.0.1:5000/)**.
+
+> [http://127.0.0.1:5000/](http://127.0.0.1:5000/)
+
+
+
+### **Deployed on Heroku** 
+
+[https://einstein-shoppinglist.herokuapp.com](https://einstein-shoppinglist.herokuapp.com)
+
+
 
 ### Usage
 
-The shopping-list app is still under development. It will soon provided an interactive Graphical User Interface which will be easy to interact with
+The shopping-list app provides an interactive Graphical User Interface which is easy to interact with
+
+##### User create a user account
+
+![Sign Up](https://raw.githubusercontent.com/EinsteinCarrey/Shoppinglist/flask-with-jinja/Designs/screenshots/signup-screen.png)
+
+##### User can now login to the account
+
+![Login](https://raw.githubusercontent.com/EinsteinCarrey/Shoppinglist/flask-with-jinja/Designs/screenshots/login-screen.png)
+
+##### User can signout
+
+![Sign-out](https://raw.githubusercontent.com/EinsteinCarrey/Shoppinglist/flask-with-jinja/Designs/screenshots/signout.png)
+
+##### User can create and view shopping-lists
+
+![Shopping-lists](https://raw.githubusercontent.com/EinsteinCarrey/Shoppinglist/flask-with-jinja/Designs/screenshots/shopping-list.png)
 
 
 
@@ -49,24 +82,17 @@ The shopping-list app is still under development. It will soon provided an inter
 This code has been tested using three common python test libraries `py.test`, `unittest` and `nosetest`.
 
 ```python
-# Test in py.test
-# Navigate to the _tests directory
+# Testing in nosetest
+# Navigate to the project root directory
 # run the following command
-py.test
+nosetests _tests
 
-# Samle output
-============================= test session starts =============================
-platform win32 -- Python 3.6.1, pytest-3.2.1, py-1.4.34, pluggy-0.4.0
-rootdir: C:\Project\Directory\shoppinglist\_tests, inifile:
-collected 52 items
-test_app.py ...............
-test_item.py .....
-test_shopping_list.py ................
-test_user.py ................
+# Sample output
+.........................................................
+----------------------------------------------------------------------
+Ran 57 tests in 0.459s
 
-========================== 52 passed in 0.30 seconds ==========================
-Process finished with exit code 0
-
+OK
 ```
 
 ### Coding style tests
