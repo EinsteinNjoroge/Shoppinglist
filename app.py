@@ -222,6 +222,7 @@ def view_shopping_list(return_type=None):
         data['current_users_shopping_lists'] = current_users_shopping_lists
 
     if return_type == 'raw':
+
         # returns python dictionary
         return data
 
@@ -310,7 +311,7 @@ def update_shoppinglist_item(shoppinglist_id):
 def delete_shoppinglist_item(shoppinglist_id, item_id):
     shoppinglist = get_shopping_list(shoppinglist_id)
     if shoppinglist is not None:
-        shoppinglist.remove_item(int(item_id))
+        shoppinglist.remove_item(item_id)
 
     return redirect('/shopping-list/' + shoppinglist_id)
 
