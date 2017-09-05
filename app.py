@@ -93,7 +93,7 @@ def create_user():
     if request.method == 'GET':
         return render_template('create_account.html', data=data)
 
-    if request.method == 'POST':
+    else:
         firstname = request.form['firstname']
         lastname = request.form['lastname']
         password = request.form['password']
@@ -101,14 +101,13 @@ def create_user():
 
         error = create_user_account(username, password, firstname, lastname)
 
-        if error is not None:
-            data['error'] = "*" + str(error) + "*"
-            return render_template('create_account.html', data=data)
-
-        else:
+        if error is None:
             # log this user in
             login(username, password)
             return redirect('/shopping-list')
+        else:
+            data['error'] = "*" + str(error) + "*"
+            return render_template('create_account.html', data=data)
 
 
 @flask_app.route('/login', methods=['POST', 'GET'])

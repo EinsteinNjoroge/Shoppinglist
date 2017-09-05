@@ -1,8 +1,0 @@
-jshint:
-  enabled: false
-
-eslint:
-  enabled: true
-
-python:
-  enabled: true
