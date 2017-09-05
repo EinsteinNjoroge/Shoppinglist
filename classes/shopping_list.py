@@ -36,11 +36,13 @@ class ShoppingList(object):
     def remove_item(self, item_id):
         if not isinstance(item_id, int):
             return "Item id must be an Integer"
-
+        count = 0
         for item in self.items:
-            if item.id == item_id:
+            if str(item.id) == str(item_id):
+                self.items.pop(count)
                 del item
                 return True
+        count += 1
 
         return "Item does not exist"
 

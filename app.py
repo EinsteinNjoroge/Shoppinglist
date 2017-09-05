@@ -222,9 +222,7 @@ def create_shoppinglist_item(shoppinglist_id):
 
     shoppinglist = get_shopping_list(shoppinglist_id)
     if shoppinglist is not None:
-        print(shoppinglist.items)
         shoppinglist.add_item(item_name)
-        print(shoppinglist.items)
 
     return redirect('/shopping-list/' + shoppinglist_id)
 
@@ -253,6 +251,30 @@ def view_shoppinglist_items(shoppinglist_id):
         data['my_shoppinglist_items'] = shopping_list_items
 
     return render_template('shoppinglist_items.html', data=data)
+
+
+@flask_app.route('/shopping-list/<shoppinglist_id>/update-item', methods=['POST'])
+def update_shoppinglist_item(shoppinglist_id):
+    item_id = request.form['id']
+    name = request.form['name']
+
+    shoppinglist = get_shopping_list(shoppinglist_id)
+
+    for item in shoppinglist.items:
+        if str(item.id) == item_id:
+            item.update(name)
+            break
+
+    return redirect('/shopping-list/' + shoppinglist_id)
+
+
+@flask_app.route('/shopping-list/<shoppinglist_id>/delete/<item_id>', methods=['GET'])
+def delete_shoppinglist_item(shoppinglist_id, item_id):
+    shoppinglist = get_shopping_list(shoppinglist_id)
+    if shoppinglist is not None:
+        shoppinglist.remove_item(int(item_id))
+
+    return redirect('/shopping-list/' + shoppinglist_id)
 
 
 if __name__ == "__main__":

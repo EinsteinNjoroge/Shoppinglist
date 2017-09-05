@@ -12,11 +12,12 @@ $(document).ready(function () {
     });
 
     // initialize jquery datatable on shoppinglist items
-    var shoppinglistItemsTable = $("#shoppinglistItemsTable").DataTable({
+    var shoppinglistItemsTable = $("#shoppingListItemsTable").DataTable({
         "paging": false,
         "info": false,
         columns: [
-            {title: "Item"}
+            {title: "Item"},
+            {title: "Action"}
         ]
     });
 
@@ -45,7 +46,7 @@ $(document).ready(function () {
                 "<textarea name=\"title\">" + values[1] + "</textarea>",
                 "<button class=\"btn btn-primary\">Save</button>"
             ];
-        } else if (currentTableID === "shoppinglistItemsTable") {
+        } else if (currentTableID === "shoppingListItemsTable") {
             editor = [
                 "<input type=\"hidden\" name=\"id\" value=\"" + currentRowID + "\" />" +
                 "<textarea name=\"name\">" + values[0] + "</textarea>",
