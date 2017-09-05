@@ -181,6 +181,7 @@ def view_shopping_list(return_type=None):
             shopping_list_data = classes.shared_funtions_helper.get_attributes_from_class(
                 shopping_list
             )
+
             shopping_list_data["priority"] = count
 
             current_users_shopping_lists.append(shopping_list_data)
@@ -219,12 +220,9 @@ def delete_shoppinglist(shoppinglist_id):
 def create_shoppinglist_item(shoppinglist_id):
     item_name = request.form['item']
 
-    # check if current user has any shoppinglists
-    if current_user_has_shopping_lists():
-
-        for shoppinglist in user_accounts[user_logged_in].shopping_lists:
-            if str(shoppinglist.id) == shoppinglist_id:
-                break
+    shoppinglist = get_shopping_list(shoppinglist_id)
+    if shoppinglist is not None:
+        shoppinglist.add_item(item_name)
 
     return redirect('/shopping-list/' + shoppinglist_id)
 
@@ -245,12 +243,10 @@ def view_shoppinglist_items(shoppinglist_id):
         # get items in selected shopping_lists
         for shoppinglist in my_shoppinglists:
             if str(shoppinglist['id']) == shoppinglist_id:
-
                 shopping_list_items = []
                 for item in shoppinglist['items']:
                     item_data = classes.shared_funtions_helper.get_attributes_from_class(item)
                     shopping_list_items.append(item_data)
-
                 data['my_shoppinglist_items'] = shopping_list_items
                 break
 
