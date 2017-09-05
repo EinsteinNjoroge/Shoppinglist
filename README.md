@@ -55,19 +55,19 @@ The shopping-list app provides an interactive Graphical User Interface which is 
 
 ##### User create a user account
 
-![Sign Up](https://raw.githubusercontent.com/EinsteinCarrey/Shoppinglist/flask/Designs/screenshots/signup-screen.png)
+![Sign Up](https://raw.githubusercontent.com/EinsteinCarrey/Shoppinglist/flask-with-jinja/Designs/screenshots/signup-screen.png)
 
 ##### User can now login to the account
 
-![Login](https://raw.githubusercontent.com/EinsteinCarrey/Shoppinglist/flask/Designs/screenshots/login-screen.png)
+![Login](https://raw.githubusercontent.com/EinsteinCarrey/Shoppinglist/flask-with-jinja/Designs/screenshots/login-screen.png)
 
 ##### User can signout
 
-![Sign-out](https://raw.githubusercontent.com/EinsteinCarrey/Shoppinglist/flask/Designs/screenshots/signout.png)
+![Sign-out](https://raw.githubusercontent.com/EinsteinCarrey/Shoppinglist/flask-with-jinja/Designs/screenshots/signout.png)
 
 ##### User can create and view shopping-lists
 
-![Shopping-lists](https://raw.githubusercontent.com/EinsteinCarrey/Shoppinglist/flask/Designs/screenshots/shopping-list.png)
+![Shopping-lists](https://raw.githubusercontent.com/EinsteinCarrey/Shoppinglist/flask-with-jinja/Designs/screenshots/shopping-list.png)
 
 
 

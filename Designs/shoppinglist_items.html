@@ -43,9 +43,12 @@
     <form class="shoppingList-items-form" method="post"
           action="/shopping-list/{{ data['current_shoppinglist'] }}/update-item">
         <div id="shoppingListItems" class="float-right">
+            <br>
+            <br>
+            <br>
+            <br>
             <h3 id="listItemHeader"></h3>
-            <table width="95%" class="ui celled table"
-                   id="shoppingListItemsTable">
+            <table class="ui celled table" id="shoppingListItemsTable">
                 {% for shoppinglist_item in data['my_shoppinglist_items'] %}
                 <tr id="{{ shoppinglist_item.id }}">
                     <td>

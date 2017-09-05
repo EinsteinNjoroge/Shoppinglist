@@ -1,4 +1,14 @@
+function setWindowHeight() {
+    $('.mid-center').css('height', $(window).height());
+}
+
+
 $(document).ready(function () {
+
+    setWindowHeight();
+    $(window).resize(function () {
+        setWindowHeight();
+    })
 
     // initialize jquery datatable on the shoppinglist
     $("#shoppinglistTable").DataTable({
