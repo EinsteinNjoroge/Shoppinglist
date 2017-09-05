@@ -33,8 +33,6 @@ def create_user_account(username=None, password=None, firstname="", lastname="")
         return 'Password should have at-least 6 characters'
 
     new_user_account = User(username, password, firstname, lastname)
-
-    global user_accounts
     user_accounts[username] = new_user_account
 
 

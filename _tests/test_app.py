@@ -100,13 +100,12 @@ class TestApp(TestCase):
     def test_index_endpoint_exist(self):
         # test default endpoint '/'
         response = self.test_client.get('/', content_type='html/text')
-        self.assertEqual(response.status_code, 302, "Endpoint `/` should be accessible")
+        self.assertEqual(response.status_code, 302)
 
     def test_signup_endpoint_exist(self):
         # test signup endpoint
         response = self.test_client.get('/signup', content_type='html/text')
-        self.assertTrue(response.status_code,
-                        "Endpoint `/signup` should be accessible")
+        self.assertEqual(response.status_code, 200)
 
     def test_login_endpoint_exist(self):
         # test login endpoint
