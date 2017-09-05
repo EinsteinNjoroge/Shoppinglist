@@ -32,8 +32,9 @@ def create_user_account(username=None, password=None, firstname="", lastname="")
     if len(password) < 6:
         return 'Password should have at-least 6 characters'
 
-    global user_accounts
     new_user_account = User(username, password, firstname, lastname)
+
+    global user_accounts
     user_accounts[username] = new_user_account
 
 
@@ -45,7 +46,6 @@ def login(username, password):
     if username is None:
         return 'Username must be provided'
 
-    global user_accounts
     if username in user_accounts.keys():
         user_account = user_accounts[username]
 
@@ -77,9 +77,6 @@ def get_shopping_list(shopping_list_id):
             return my_shoppinglists[shopping_list_id]
 
 
-""" Flask application endpoints """
-
-
 @flask_app.route('/', methods=['GET'])
 def index():
     if user_logged_in is None:
@@ -90,7 +87,6 @@ def index():
 
 @flask_app.route('/signup', methods=['POST', 'GET'])
 def create_user():
-    global user_logged_in
     if user_logged_in is not None:
         return redirect('/shopping-list')
 
@@ -119,7 +115,6 @@ def create_user():
 
 @flask_app.route('/login', methods=['POST', 'GET'])
 def authenticate_user():
-    global user_logged_in
     if user_logged_in is not None:
         return redirect('/shopping-list')
 
@@ -164,7 +159,6 @@ def create_shoppinglist():
 def view_shopping_list(return_type=None):
 
     # assert user is logged in
-    global user_logged_in
     if user_logged_in is None:
         return redirect('/login')
 
