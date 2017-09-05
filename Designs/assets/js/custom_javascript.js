@@ -1,5 +1,5 @@
 function setWindowHeight() {
-    $('.mid-center').css('height', $(window).height());
+    $(".mid-center").css("height", $(window).height());
 }
 
 
@@ -8,7 +8,7 @@ $(document).ready(function () {
     setWindowHeight();
     $(window).resize(function () {
         setWindowHeight();
-    })
+    });
 
     // initialize jquery datatable on the shoppinglist
     $("#shoppinglistTable").DataTable({
@@ -81,7 +81,7 @@ $(document).ready(function () {
                 remove: {
                     btnClass: "btn-danger",
                     action() {
-                        window.location.href = referenceLink;
+                        window.location = referenceLink;
                     }
                 },
                 cancel: {
@@ -96,7 +96,7 @@ $(document).ready(function () {
     referenceLink.click(function () {
 
         // redirect to new url
-        window.location.href = $(this).attr("data-ref");
+        window.location = $(this).attr("data-ref");
     });
 
 });

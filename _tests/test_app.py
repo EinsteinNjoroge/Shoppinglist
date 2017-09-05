@@ -60,6 +60,13 @@ class TestApp(TestCase):
         self.app.create_user_account("username", "1234567")
         self.assertTrue(len(self.app.user_accounts) == 1)
 
+    def test_create_user_with_duplicate_username(self):
+        self.app.create_user_account("username", "1234567")
+        self.assertEqual(
+            self.app.create_user_account("username", "1234567"),
+            "Username username is already taken. Use a unique username"
+        )
+
     def test_login_without_password(self):
         self.assertEqual(
             self.app.login("username", None),
@@ -99,8 +106,6 @@ class TestApp(TestCase):
         self.app.login(self.username, self.pword)
         self.app.signout()
         self.assertTrue(self.app.user_logged_in is None)
-
-    ''' Tests for flasks endpoints  '''
 
     def test_index_endpoint_exist(self):
         # test default endpoint '/'

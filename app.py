@@ -13,6 +13,18 @@ flask_app = Flask('ShoppingList', template_folder="Designs", static_folder='Desi
 
 
 def create_user_account(username=None, password=None, firstname="", lastname=""):
+    """This function validates user inputs and attempts to create a user object.
+
+        Args:
+            username (str): A unique name to identify user.
+            password (str): A secret phrase to authenticate a user.
+            firstname (str): The user's first name.
+            lastname (str): The user's last name.
+
+        Returns:
+            str: if validation fails, otherwise return None.
+
+    """
 
     if not isinstance(password, str):
         return 'Password provided must be a string'
@@ -32,11 +44,24 @@ def create_user_account(username=None, password=None, firstname="", lastname="")
     if len(password) < 6:
         return 'Password should have at-least 6 characters'
 
+    if username in user_accounts.keys():
+        return "Username " + username + " is already taken. Use a unique username"
+
     new_user_account = User(username, password, firstname, lastname)
     user_accounts[username] = new_user_account
 
 
 def login(username, password):
+    """This function authenticates users and creates user sessions.
+
+        Args:
+            username (str): A unique name to identify user.
+            password (str): A secret phrase to authenticate a user.
+
+        Returns:
+            error message if validation fails, otherwise return True
+
+    """
 
     if password is None:
         return 'Password must be provided'
@@ -56,15 +81,30 @@ def login(username, password):
 
 
 def signout():
+    """This function clears user session"""
     global user_logged_in
     user_logged_in = None
 
 
 def current_user_has_shopping_lists():
+    """This function checks if the current sessions user has any shopping-lists .
+            Returns:
+                bool: True if user has at-least one shoppinglist, otherwise returns False
+    """
     return len(user_accounts[user_logged_in].shopping_lists) > 0
 
 
 def get_shopping_list(shopping_list_id):
+    """This function finds a particular shopping-list from shoppinglists owned by current
+    sessions user.
+
+            Args:
+                shopping_list_id (str): A unique identifier for the shoppinglist being retrieved.
+
+            Returns:
+                ShoppingList: if shopping-list has been retrieved, otherwise returns None
+
+    """
     # check if current user has any shoppinglists
     if current_user_has_shopping_lists():
 
@@ -165,6 +205,7 @@ def view_shopping_list(return_type=None):
 
     # check if current user has any shopping_lists
     if current_user_has_shopping_lists():
+
         # get shopping_lists owned by current user
         count = 1
         current_users_shopping_lists = []
@@ -181,6 +222,7 @@ def view_shopping_list(return_type=None):
         data['current_users_shopping_lists'] = current_users_shopping_lists
 
     if return_type == 'raw':
+        # returns python dictionary
         return data
 
     return render_template('shopping-list.html', data=data)
@@ -191,6 +233,7 @@ def update_shoppinglist():
     identifier = request.form['id']
     title = request.form['title']
 
+    # get selected shoppinglist
     shoppinglist = get_shopping_list(identifier)
     if shoppinglist is not None:
         shoppinglist.update(title)
@@ -200,6 +243,7 @@ def update_shoppinglist():
 
 @flask_app.route('/delete/shopping-list/<shoppinglist_id>', methods=['GET'])
 def delete_shoppinglist(shoppinglist_id):
+    # get current selected shoppinglist
     shoppinglist = get_shopping_list(shoppinglist_id)
     if shoppinglist is not None:
         del user_accounts[user_logged_in].shopping_lists[shoppinglist_id]
@@ -211,6 +255,7 @@ def delete_shoppinglist(shoppinglist_id):
 def create_shoppinglist_item(shoppinglist_id):
     item_name = request.form['item']
 
+    # get selected shoppinglist
     shoppinglist = get_shopping_list(shoppinglist_id)
     if shoppinglist is not None:
         shoppinglist.add_item(item_name)
@@ -225,17 +270,18 @@ def view_shoppinglist_items(shoppinglist_id):
     data['current_shoppinglist'] = shoppinglist_id
     data['my_shoppinglists'] = []
 
-    # check if current user has any shoppinglists
     if current_user_has_shopping_lists():
+
         # get shoppinglists owned by current user
         my_shoppinglists = view_shopping_list('raw')['current_users_shopping_lists']
         data['my_shoppinglists'] = my_shoppinglists
 
-        # get items in selected shopping_lists
-        shopping_list_items = []
+        # get selected shoppinglist
         shoppinglist = get_shopping_list(shoppinglist_id)
         data['current_shoppinglists_title'] = shoppinglist.title
 
+        # get items in selected shopping_list
+        shopping_list_items = []
         for item in shoppinglist.items:
             item_data = global_functions.get_attributes_from_class(item)
             shopping_list_items.append(item_data)
@@ -250,8 +296,8 @@ def update_shoppinglist_item(shoppinglist_id):
     item_id = request.form['id']
     name = request.form['name']
 
+    # get items in the selected shopping list
     shoppinglist = get_shopping_list(shoppinglist_id)
-
     for item in shoppinglist.items:
         if str(item.id) == item_id:
             item.update(name)
