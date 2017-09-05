@@ -234,6 +234,7 @@ def view_shoppinglist_items(shoppinglist_id):
         # get items in selected shopping_lists
         shopping_list_items = []
         shoppinglist = get_shopping_list(shoppinglist_id)
+        data['current_shoppinglists_title'] = shoppinglist.title
 
         for item in shoppinglist.items:
             item_data = classes.shared_funtions_helper.get_attributes_from_class(item)

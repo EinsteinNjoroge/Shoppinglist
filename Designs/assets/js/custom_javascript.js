@@ -53,13 +53,13 @@ $(document).ready(function () {
         if (currentTableID === "shoppinglistTable") {
             editor = [
                 "<input type=\"hidden\" name=\"id\" value=\"" + currentRowID + "\" />",
-                "<textarea name=\"title\">" + values[1] + "</textarea>",
+                "<input required aria-required name=\"title\" value=\"" + values[1] + "\" />",
                 "<button class=\"btn btn-primary\">Save</button>"
             ];
         } else if (currentTableID === "shoppingListItemsTable") {
             editor = [
                 "<input type=\"hidden\" name=\"id\" value=\"" + currentRowID + "\" />" +
-                "<textarea name=\"name\">" + values[0] + "</textarea>",
+                "<input required aria-required name=\"name\" value=\"" + values[0] + "\" />",
                 "<button class=\"btn btn-primary\">Save</button>"
             ];
         }

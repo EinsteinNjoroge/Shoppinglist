@@ -47,7 +47,7 @@
             <br>
             <br>
             <br>
-            <h3 id="listItemHeader"></h3>
+            <h3 id="listItemHeader">{{ data['current_shoppinglists_title'] }}</h3>
             <table class="ui celled table" id="shoppingListItemsTable">
                 {% for shoppinglist_item in data['my_shoppinglist_items'] %}
                 <tr id="{{ shoppinglist_item.id }}">
