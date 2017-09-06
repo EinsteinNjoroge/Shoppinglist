@@ -186,8 +186,8 @@ def create_shoppinglist():
     new_shoppinglist = ShoppingList(shoppinglist)
 
     # add new shoppinglist to collection of shoppinglists owned by current user
-    current_user = user_accounts[session["user_logged_in"]]
-    current_user.shopping_lists[str(new_shoppinglist.id)] = new_shoppinglist
+    user_accounts[session["user_logged_in"]].shopping_lists[
+        str(new_shoppinglist.id)] = new_shoppinglist
 
     return redirect('/shopping-list')
 
