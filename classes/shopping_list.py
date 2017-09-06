@@ -89,7 +89,7 @@ class ShoppingList(object):
                 self.items.pop(count)
                 del item
                 return True
-        count += 1
+            count += 1
 
         return "Item does not exist"
 
