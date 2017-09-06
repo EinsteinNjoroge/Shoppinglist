@@ -2,14 +2,15 @@ from flask import Flask
 from flask import redirect
 from flask import render_template
 from flask import request
+from flask import session
 
 import global_functions
 from classes.shopping_list import ShoppingList
 from classes.user import User
 
 user_accounts = {}
-user_logged_in = None
 flask_app = Flask('ShoppingList', template_folder="Designs", static_folder='Designs/assets')
+flask_app.secret_key = "#$%^GH456BYTR^&*UIJKfg78UHjhy4ghSDFfd564GJhnGH"
 
 
 def create_user_account(username=None, password=None, firstname="", lastname=""):
@@ -73,8 +74,7 @@ def login(username, password):
         user_account = user_accounts[username]
 
         if user_account.password_hash == password:
-            global user_logged_in
-            user_logged_in = user_account.username
+            session["user_logged_in"] = user_account.username
             return True
 
     return 'Wrong credentials combination'
@@ -82,8 +82,7 @@ def login(username, password):
 
 def signout():
     """This function clears user session"""
-    global user_logged_in
-    user_logged_in = None
+    session.pop("user_logged_in")
 
 
 def current_user_has_shopping_lists():
@@ -91,7 +90,7 @@ def current_user_has_shopping_lists():
             Returns:
                 bool: True if user has at-least one shoppinglist, otherwise returns False
     """
-    return len(user_accounts[user_logged_in].shopping_lists) > 0
+    return len(user_accounts[session["user_logged_in"]].shopping_lists) > 0
 
 
 def get_shopping_list(shopping_list_id):
@@ -109,7 +108,7 @@ def get_shopping_list(shopping_list_id):
     if current_user_has_shopping_lists():
 
         # get shoppinglists owned by current user
-        my_shoppinglists = user_accounts[user_logged_in].shopping_lists
+        my_shoppinglists = user_accounts[session["user_logged_in"]].shopping_lists
 
         if shopping_list_id in my_shoppinglists.keys():
             return my_shoppinglists[shopping_list_id]
@@ -117,7 +116,7 @@ def get_shopping_list(shopping_list_id):
 
 @flask_app.route('/', methods=['GET'])
 def index():
-    if user_logged_in is None:
+    if "user_logged_in" not in session.keys():
         return redirect('/login')
     else:
         return redirect('/shopping-list')
@@ -125,7 +124,7 @@ def index():
 
 @flask_app.route('/signup', methods=['POST', 'GET'])
 def create_user():
-    if user_logged_in is not None:
+    if "user_logged_in" in session.keys():
         return redirect('/shopping-list')
 
     data = {'host_url': request.host_url}
@@ -152,7 +151,7 @@ def create_user():
 
 @flask_app.route('/login', methods=['POST', 'GET'])
 def authenticate_user():
-    if user_logged_in is not None:
+    if "user_logged_in" in session.keys():
         return redirect('/shopping-list')
 
     data = {'host_url': request.host_url}
@@ -187,7 +186,8 @@ def create_shoppinglist():
     new_shoppinglist = ShoppingList(shoppinglist)
 
     # add new shoppinglist to collection of shoppinglists owned by current user
-    user_accounts[user_logged_in].shopping_lists[str(new_shoppinglist.id)] = new_shoppinglist
+    current_user = user_accounts[session["user_logged_in"]]
+    current_user.shopping_lists[str(new_shoppinglist.id)] = new_shoppinglist
 
     return redirect('/shopping-list')
 
@@ -196,7 +196,7 @@ def create_shoppinglist():
 def view_shopping_list(return_type=None):
 
     # assert user is logged in
-    if user_logged_in is None:
+    if "user_logged_in" not in session.keys():
         return redirect('/login')
 
     data = dict()
@@ -209,7 +209,7 @@ def view_shopping_list(return_type=None):
         # get shopping_lists owned by current user
         count = 1
         current_users_shopping_lists = []
-        for shopping_list in user_accounts[user_logged_in].shopping_lists.values():
+        for shopping_list in user_accounts[session["user_logged_in"]].shopping_lists.values():
             shopping_list_data = global_functions.get_attributes_from_class(
                 shopping_list
             )
@@ -247,7 +247,7 @@ def delete_shoppinglist(shoppinglist_id):
     # get current selected shoppinglist
     shoppinglist = get_shopping_list(shoppinglist_id)
     if shoppinglist is not None:
-        del user_accounts[user_logged_in].shopping_lists[shoppinglist_id]
+        del user_accounts[session["user_logged_in"]].shopping_lists[shoppinglist_id]
 
     return redirect('/shopping-list')
 
@@ -311,7 +311,7 @@ def update_shoppinglist_item(shoppinglist_id):
 def delete_shoppinglist_item(shoppinglist_id, item_id):
     shoppinglist = get_shopping_list(shoppinglist_id)
     if shoppinglist is not None:
-        shoppinglist.remove_item(int(item_id))
+        shoppinglist.remove_item(item_id)
 
     return redirect('/shopping-list/' + shoppinglist_id)
 
