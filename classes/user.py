@@ -13,12 +13,7 @@ class User(object):
                 firstname (str): The user's first name.
                 lastname (str): The user's last name.
 
-            Methods:
-                create_shopping_list
-                remove_shopping_list
-                list_shopping_lists
-
-            Args:
+            :arg
                 username (str): A unique name to identify user.
                 password (str): A secret phrase to authenticate a user.
                 firstname (str): The user's first name.
@@ -36,10 +31,10 @@ class User(object):
     def create_shopping_list(self, title):
         """ Creates a new ShoppingList object
 
-            Args:
+            :arg
                 title: The caption of the  shoppinglist
 
-            Returns:
+            :returns
                 str: id of the new shoppinglist that has been created
 
         """
@@ -61,13 +56,12 @@ class User(object):
     def remove_shopping_list(self, shopping_list_id):
         """ Deletes the selected shoppinglist object from memory
 
-            Args:
+            :arg
                 shopping_list_id (str): The caption of the  shoppinglist
 
-            Returns:
+            :returns
                 True if the shoppinglist has been deleted successfully, otherwise return
                 error message
-
         """
 
         if not isinstance(shopping_list_id, int):
@@ -82,7 +76,7 @@ class User(object):
 
     def list_shopping_lists(self):
         """
-            Returns:
+            :returns
                 list: Returns a list of all the shoppinglists owned by current user
 
         """
