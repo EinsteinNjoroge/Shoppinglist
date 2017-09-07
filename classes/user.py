@@ -28,7 +28,7 @@ class User(object):
         self.shopping_lists = dict()
         self.id = global_functions.get_random_id()
 
-    def create_shopping_list(self, title):
+    def create_shopping_list(self, title=None):
         """ Creates a new ShoppingList object
 
             :arg

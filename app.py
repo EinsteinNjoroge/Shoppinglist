@@ -79,7 +79,8 @@ def login(username, password):
 
 def signout():
     """This function clears user session"""
-    session.pop("user_logged_in")
+    if "user_logged_in" in session.keys():
+        session.pop("user_logged_in")
 
 
 def current_user_has_shopping_lists():
@@ -178,7 +179,8 @@ def end_session():
 @flask_app.route('/create/shopping-list', methods=['POST'])
 def create_shoppinglist():
     title = request.form['title']
-    error_msg = User.create_shopping_list(title)
+    current_user = user_accounts[session["user_logged_in"]]
+    error_msg = current_user.create_shopping_list(title=title)
 
     # if error message was returned display error
     if error_msg is not None:
