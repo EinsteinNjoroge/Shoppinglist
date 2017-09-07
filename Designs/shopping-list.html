@@ -59,10 +59,10 @@
         <br>
         {{data['message']}}
         <br>
-        <form method="post" action="/create/shoppinglist" class="add-shoppinglist">
+        <form method="post" action="/create/shopping-list" class="add-shoppinglist">
             <h4>Add shoppinglist</h4>
             <div class="form-group col-md-10">
-                <input type="text" name="shoppinglist" class="form-control"
+                <input type="text" name="title" class="form-control"
                        value="{{request.form.shoppinglist}}"
                        aria-required="true" required placeholder="New shoppinglist">
             </div>

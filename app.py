@@ -4,10 +4,9 @@ from flask import render_template
 from flask import request
 from flask import session
 import os
-
 import global_functions
-from classes.shopping_list import ShoppingList
 from classes.user import User
+
 
 user_accounts = {}
 flask_app = Flask('ShoppingList', template_folder="Designs", static_folder='Designs/assets')
@@ -16,16 +15,14 @@ flask_app.secret_key = os.urandom(24)
 
 def create_user_account(username=None, password=None, firstname="", lastname=""):
     """This function validates user inputs and attempts to create a user object.
-
-        Args:
+        :arg
             username (str): A unique name to identify user.
             password (str): A secret phrase to authenticate a user.
             firstname (str): The user's first name.
             lastname (str): The user's last name.
 
-        Returns:
+        :returns
             str: if validation fails, otherwise return None.
-
     """
 
     if not isinstance(password, str):
@@ -55,14 +52,12 @@ def create_user_account(username=None, password=None, firstname="", lastname="")
 
 def login(username, password):
     """This function authenticates users and creates user sessions.
-
-        Args:
+        :arg
             username (str): A unique name to identify user.
             password (str): A secret phrase to authenticate a user.
 
-        Returns:
+        :returns
             error message if validation fails, otherwise return True
-
     """
 
     if password is None:
@@ -74,7 +69,8 @@ def login(username, password):
     if username in user_accounts.keys():
         user_account = user_accounts[username]
 
-        if user_account.password_hash == password:
+        password_hash = global_functions.sha1_hash(password)
+        if user_account.password_hash == password_hash:
             session["user_logged_in"] = user_account.username
             return True
 
@@ -88,8 +84,8 @@ def signout():
 
 def current_user_has_shopping_lists():
     """This function checks if the current sessions user has any shopping-lists .
-            Returns:
-                bool: True if user has at-least one shoppinglist, otherwise returns False
+        :returns
+            bool: True if user has at-least one shoppinglist, otherwise returns False
     """
     return len(user_accounts[session["user_logged_in"]].shopping_lists) > 0
 
@@ -97,13 +93,11 @@ def current_user_has_shopping_lists():
 def get_shopping_list(shopping_list_id):
     """This function finds a particular shopping-list from shoppinglists owned by current
     sessions user.
+        :arg
+            shopping_list_id (str): A unique identifier for the shoppinglist being retrieved.
 
-            Args:
-                shopping_list_id (str): A unique identifier for the shoppinglist being retrieved.
-
-            Returns:
-                ShoppingList: if shopping-list has been retrieved, otherwise returns None
-
+        :returns
+            ShoppingList: if shopping-list has been retrieved, otherwise returns None
     """
     # check if current user has any shoppinglists
     if current_user_has_shopping_lists():
@@ -181,10 +175,10 @@ def end_session():
     return redirect('/login')
 
 
-@flask_app.route('/create/shoppinglist', methods=['POST'])
+@flask_app.route('/create/shopping-list', methods=['POST'])
 def create_shoppinglist():
-    shoppinglist = request.form['shoppinglist']
-    error_msg = User.create_shopping_list(shoppinglist)
+    title = request.form['title']
+    error_msg = User.create_shopping_list(title)
 
     # if error message was returned display error
     if error_msg is not None:
@@ -197,7 +191,6 @@ def create_shoppinglist():
 
 @flask_app.route('/shopping-list', methods=['GET'])
 def view_shopping_list(return_type=None, message=None):
-
     # assert user is logged in
     if "user_logged_in" not in session.keys():
         return redirect('/login')
