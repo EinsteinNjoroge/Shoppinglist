@@ -184,17 +184,19 @@ def end_session():
 @flask_app.route('/create/shoppinglist', methods=['POST'])
 def create_shoppinglist():
     shoppinglist = request.form['shoppinglist']
-    new_shoppinglist = ShoppingList(shoppinglist)
+    error_msg = User.create_shopping_list(shoppinglist)
 
-    # add new shoppinglist to collection of shoppinglists owned by current user
-    user_accounts[session["user_logged_in"]].shopping_lists[
-        str(new_shoppinglist.id)] = new_shoppinglist
-
-    return redirect('/shopping-list')
+    # if error message was returned display error
+    if error_msg is not None:
+        # show shoppinglists page with error message
+        view_shopping_list(message=error_msg)
+    else:
+        # show shoppinglists
+        return redirect('/shopping-list')
 
 
 @flask_app.route('/shopping-list', methods=['GET'])
-def view_shopping_list(return_type=None):
+def view_shopping_list(return_type=None, message=None):
 
     # assert user is logged in
     if "user_logged_in" not in session.keys():
@@ -202,6 +204,7 @@ def view_shopping_list(return_type=None):
 
     data = dict()
     data['host_url'] = request.host_url
+    data['message'] = message
     data['current_users_shopping_lists'] = []
 
     # check if current user has any shopping_lists
@@ -318,4 +321,4 @@ def delete_shoppinglist_item(shoppinglist_id, item_id):
 
 
 if __name__ == "__main__":
-    flask_app.run()
+    flask_app.run(debug=True)

@@ -39,22 +39,11 @@ class TestUser(TestCase):
     def test_create_shopping_list(self):
         # attempt to create a shopping list
         shopping_list_title = "back to school"
-        created_shopping_list = self.user.create_shopping_list(shopping_list_title)
+        self.user.create_shopping_list(shopping_list_title)
 
-        self.assertEqual(
-            shopping_list_title,
-            self.user.shopping_lists[created_shopping_list].title,
+        self.assertTrue(
+            len(self.user.shopping_lists) == 1,
             msg="Method create_shopping_list should add a ShoppingList object to shopping_lists"
-        )
-
-    def test_create_shopping_list_returns_str(self):
-        # Create a shopping list
-        shopping_list_title = "back to school"
-
-        self.assertIsInstance(
-            self.user.create_shopping_list(shopping_list_title),
-            str,
-            msg="Method create_shopping_list should return id of the shopping list created"
         )
 
     def test_create_shopping_list_with_duplicate_title(self):
