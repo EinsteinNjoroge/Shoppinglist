@@ -42,7 +42,6 @@ class ShoppingList(object):
         # Create a new item
         new_item = Item(item_name)
         self.items.append(new_item)
-        return new_item.id
 
     def update(self, new_title):
         """ Changes the title of a shoppinglist

@@ -35,6 +35,17 @@ class TestShoppingList(TestCase):
             msg="Method add_item should add a Item object to items"
         )
 
+    def test_add_item(self):
+        # attempt to create a shopping list item
+        item_name = "School shoes"
+        self.shopping_list.add_item(item_name)
+
+        self.assertEqual(
+            self.shopping_list.items[0].name,
+            item_name,
+            msg="Method add_item should add a Item object to items"
+        )
+
     def test_add_item_returns_int(self):
         # add item to shopping list
         item_name = "school bag"
@@ -52,7 +63,7 @@ class TestShoppingList(TestCase):
 
         self.assertEqual(
             self.shopping_list.add_item(item_name),
-            "Item " + item_name + " already added"
+            "Item `" + item_name + "` already added"
         )
 
     def test_update_list_without_title(self):

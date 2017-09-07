@@ -258,14 +258,17 @@ def create_shoppinglist_item(shoppinglist_id):
 
     # get selected shoppinglist
     shoppinglist = get_shopping_list(shoppinglist_id)
+
     if shoppinglist is not None:
-        shoppinglist.add_item(item_name)
+        error_msg = shoppinglist.add_item(item_name)
+        if error_msg is not None:
+            return view_shoppinglist_items(shoppinglist_id, error_msg)
 
     return redirect('/shopping-list/' + shoppinglist_id)
 
 
 @flask_app.route('/shopping-list/<shoppinglist_id>', methods=['GET'])
-def view_shoppinglist_items(shoppinglist_id):
+def view_shoppinglist_items(shoppinglist_id, message=None):
     data = dict()
     data['host_url'] = request.host_url
     data['current_shoppinglist'] = shoppinglist_id
@@ -276,6 +279,8 @@ def view_shoppinglist_items(shoppinglist_id):
         # get shoppinglists owned by current user
         my_shoppinglists = view_shopping_list('raw')['current_users_shopping_lists']
         data['my_shoppinglists'] = my_shoppinglists
+
+        data['message'] = message
 
         # get selected shoppinglist
         shoppinglist = get_shopping_list(shoppinglist_id)
