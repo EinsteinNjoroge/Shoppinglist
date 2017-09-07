@@ -50,7 +50,8 @@ class User(object):
 
         new_list = ShoppingList(title)
 
-        # add the new shopping list object to the list of shoppinglists owned by current user
+        # add the new shopping list object to the list of shoppinglists
+        # owned by current user
         self.shopping_lists[str(new_list.id)] = new_list
 
     def remove_shopping_list(self, shopping_list_id):
@@ -60,7 +61,8 @@ class User(object):
                 shopping_list_id (str): The caption of the  shoppinglist
 
             :returns
-                True if the shoppinglist has been deleted successfully, otherwise return
+                True if the shoppinglist has been deleted successfully,
+                 otherwise return
                 error message
         """
 
@@ -77,7 +79,8 @@ class User(object):
     def list_shopping_lists(self):
         """
             :returns
-                list: Returns a list of all the shoppinglists owned by current user
+                list: Returns a list of all the shoppinglists
+                 owned by current user
 
         """
         list_names = []

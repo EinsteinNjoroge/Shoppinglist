@@ -19,20 +19,15 @@ class TestShoppingList(TestCase):
         self.assertIsInstance(self.shopping_list.items, list)
 
     def test_add_item_without_name(self):
-        self.assertTrue(self.shopping_list.add_item(None), "Item must have a name")
+        self.assertTrue(
+            self.shopping_list.add_item(None),
+            "Item must have a name"
+        )
 
     def test_add_item_with_invalid_name(self):
-        self.assertTrue(self.shopping_list.add_item(["name"]), "Item name must be a string")
-
-    def test_add_item(self):
-        # attempt to create a shopping list item
-        item_name = "School shoes"
-        self.shopping_list.add_item(item_name)
-
-        self.assertEqual(
-            self.shopping_list.items[0].name,
-            item_name,
-            msg="Method add_item should add a Item object to items"
+        self.assertTrue(
+            self.shopping_list.add_item(["name"]),
+            "Item name must be a string"
         )
 
     def test_add_item(self):
@@ -66,10 +61,16 @@ class TestShoppingList(TestCase):
         )
 
     def test_update_list_without_title(self):
-        self.assertTrue(self.shopping_list.update(None), "Shopping list must have a title")
+        self.assertTrue(
+            self.shopping_list.update(None),
+            "Shopping list must have a title"
+        )
 
     def test_update_list_with_invalid_title(self):
-        self.assertTrue(self.shopping_list.update(["new"]), "Shopping list title must be a string")
+        self.assertTrue(
+            self.shopping_list.update(["new"]),
+            "Shopping list title must be a string"
+        )
 
     def test_update_list(self):
         self.shopping_list.update("new shopping list")
@@ -89,7 +90,9 @@ class TestShoppingList(TestCase):
         self.shopping_list.add_item("Test 2")
 
         expected_list = ["Test", "Test 2"]
-        self.assertTrue(set(self.shopping_list.list_items()) == set(expected_list))
+        self.assertTrue(
+            set(self.shopping_list.list_items()) == set(expected_list)
+        )
 
     def test_remove_item_invalid_argument(self):
         self.assertEqual(
@@ -110,5 +113,5 @@ class TestShoppingList(TestCase):
 
         self.assertTrue(
             self.shopping_list.remove_item(item_to_be_removed),
-            msg="Method remove_item should return True on successful completion"
+            msg="Method remove_item should return True if successful"
         )

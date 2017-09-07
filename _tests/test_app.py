@@ -65,8 +65,11 @@ class TestApp(TestCase):
         self.app.create_user_account(self.username, self.pword)
         stored_password = self.app.user_accounts[self.username].password_hash
 
-        self.assertEqual(stored_password, global_functions.sha1_hash(self.pword),
-                         msg="Stored passwords should be Hashed")
+        self.assertEqual(
+            stored_password,
+            global_functions.sha1_hash(self.pword),
+            msg="Stored passwords should be Hashed"
+        )
 
     def test_create_user_with_duplicate_username(self):
         self.app.create_user_account("username", "1234567")

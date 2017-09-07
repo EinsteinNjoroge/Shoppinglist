@@ -20,13 +20,15 @@ class ShoppingList(object):
         self.id = global_functions.get_random_id()
 
     def add_item(self, item_name):
-        """ Creates a new Item object and appends it to list of items in this shoppinglist
+        """ Creates a new Item object and appends it to list
+         of items in this shoppinglist
 
             :arg
                 item_name: The name of the new item to be created
 
             :return
-                id of the new Item if it has been created successfully, otherwise returns the
+                id of the new Item if it has been created successfully,
+                 otherwise returns the
                 error message generated
         """
         if item_name is None or len(item_name) < 1:
@@ -65,10 +67,12 @@ class ShoppingList(object):
         """ Deletes the selected item object from memory
 
             :arg
-                item_id (str): The unique identifier(id) of the item to be deleted
+                item_id (str): The unique identifier(id)
+                 of the item to be deleted
 
             :returns
-                True if the item has been deleted successfully, otherwise return the error message
+                True if the item has been deleted successfully,
+                 otherwise return the error message
         """
         if not isinstance(item_id, int):
             return "Item id must be an Integer"
