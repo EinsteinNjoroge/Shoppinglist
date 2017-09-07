@@ -27,7 +27,7 @@ class User(object):
             """
 
         self.username = username
-        self.password_hash = password
+        self.password_hash = global_functions.sha1_hash(password)
         self.firstname = firstname
         self.lastname = lastname
         self.shopping_lists = dict()
