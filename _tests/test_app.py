@@ -98,36 +98,3 @@ class TestApp(TestCase):
             self.app.login("non-existent-username", "asdasdsds"),
             "Wrong credentials combination"
         )
-
-        # def test_login(self):
-        #     self.app.create_user_account(self.username, self.pword)
-        #     self.assertTrue(self.app.login(self.username, self.pword))
-        #
-        # def test_login_set_session(self):
-        #     self.app.create_user_account(self.username, self.pword)
-        #     self.app.login(self.username, self.pword)
-        #     self.assertTrue(self.app.user_logged_in is not None)
-        #
-        # def test_signout(self):
-        #     self.app.create_user_account(self.username, self.pword)
-        #     self.app.login(self.username, self.pword)
-        #     self.app.signout()
-        #     with self.app.app_context():
-        #         self.assertTrue("user_logged_in" not in self.app.session.keys())
-        #
-        # def test_index_endpoint_exist(self):
-        #     # test default endpoint '/'
-        #     response = self.test_client_app.get('/', content_type='html/text')
-        #     self.assertEqual(response.status_code, 302)
-        #
-        # def test_login_endpoint_exist(self):
-        #     response = self.test_client_app.get('/login', content_type='html/text')
-        #     self.assertEqual(response.status_code, 302)
-        #
-        # def test_logout_endpoint_exist(self):
-        #     response = self.test_client_app.get('/logout', content_type='html/text')
-        #     self.assertEqual(response.status_code, 302)
-        #
-        # def test_shopping_list_endpoint_exist(self):
-        #     response = self.test_client_app.get('/shopping-list', content_type='html/text')
-        #     self.assertEqual(response.status_code, 302)

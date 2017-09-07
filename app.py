@@ -316,7 +316,7 @@ def update_shoppinglist_item(shoppinglist_id):
 def delete_shoppinglist_item(shoppinglist_id, item_id):
     shoppinglist = get_shopping_list(shoppinglist_id)
     if shoppinglist is not None:
-        shoppinglist.remove_item(item_id)
+        shoppinglist.remove_item(int(item_id))
 
     return redirect('/shopping-list/' + shoppinglist_id)
 

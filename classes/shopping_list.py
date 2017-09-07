@@ -36,7 +36,7 @@ class ShoppingList(object):
             return "Item name must be a string"
 
         for item in self.items:
-            if item.name == item_name:
+            if item.name.lower() == item_name.lower():
                 return 'Item `' + item_name + '` already added'
 
         # Create a new item
