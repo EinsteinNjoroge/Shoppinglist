@@ -58,8 +58,6 @@ class User(object):
         # add the new shopping list object to the list of shoppinglists owned by current user
         self.shopping_lists[str(new_list.id)] = new_list
 
-        return str(new_list.id)
-
     def remove_shopping_list(self, shopping_list_id):
         """ Deletes the selected shoppinglist object from memory
 
