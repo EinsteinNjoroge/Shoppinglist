@@ -68,7 +68,9 @@
             </table>
         </div>
     </form>
-    {{data['message']}}
+    {% if data['message'] != None %}
+    <div class="btn btn-warning col-md-12">{{ data['message'] }}</div>
+    {% endif %}
     <form method="post" action="/shopping-list/{{data['current_shoppinglist']}}/create">
         <div class="col-md-12 center-content">
             <br>

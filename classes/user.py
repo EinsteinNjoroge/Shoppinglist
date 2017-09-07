@@ -46,7 +46,7 @@ class User(object):
 
         for shoppinglist in self.shopping_lists.values():
             if title.lower() == shoppinglist.title.lower():
-                return "Shopping list " + title + " already exists"
+                return "Shopping list `" + title + "` already exists"
 
         new_list = ShoppingList(title)
 
