@@ -49,10 +49,9 @@ class TestShoppingList(TestCase):
     def test_add_item_returns_int(self):
         # add item to shopping list
         item_name = "school bag"
-
-        self.assertIsInstance(
-            self.shopping_list.add_item(item_name),
-            int,
+        self.shopping_list.add_item(item_name)
+        self.assertTrue(
+            len(self.shopping_list.items) == 1,
             msg="Method add_item should return id of the items added"
         )
 

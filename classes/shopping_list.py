@@ -37,7 +37,7 @@ class ShoppingList(object):
 
         for item in self.items:
             if item.name == item_name:
-                return 'Item ' + item_name + ' already added'
+                return 'Item `' + item_name + '` already added'
 
         # Create a new item
         new_item = Item(item_name)

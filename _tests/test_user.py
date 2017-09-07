@@ -53,7 +53,7 @@ class TestUser(TestCase):
 
         self.assertEqual(
             self.user.create_shopping_list(shopping_list_title),
-            "Shopping list " + shopping_list_title + " already exists"
+            "Shopping list `" + shopping_list_title + "` already exists"
         )
 
     def test_list_shopping_list_returns_list(self):
