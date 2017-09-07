@@ -10,8 +10,7 @@ from classes.user import User
 user_accounts = {}
 flask_app = Flask('ShoppingList',
                   template_folder="Designs",
-                  static_folder='Designs/assets'
-                  )
+                  static_folder='Designs/assets')
 flask_app.secret_key = os.urandom(24)
 
 
@@ -125,8 +124,8 @@ def get_shopping_list(shopping_list_id):
 def index():
     if "user_logged_in" not in session.keys():
         return redirect('/login')
-    else:
-        return redirect('/shopping-list')
+
+    return redirect('/shopping-list')
 
 
 @flask_app.route('/signup', methods=['POST', 'GET'])
@@ -140,21 +139,20 @@ def create_user():
         data['error'] = None
         return render_template('create_account.html', data=data)
 
-    else:
-        firstname = request.form['firstname']
-        lastname = request.form['lastname']
-        password = request.form['password']
-        username = request.form['username']
+    firstname = request.form['firstname']
+    lastname = request.form['lastname']
+    password = request.form['password']
+    username = request.form['username']
 
-        error = create_user_account(username, password, firstname, lastname)
+    error = create_user_account(username, password, firstname, lastname)
 
-        if error is None:
-            # log this user in
-            login(username, password)
-            return redirect('/shopping-list')
-        else:
-            data['error'] = "*" + str(error) + "*"
-            return render_template('create_account.html', data=data)
+    if error is None:
+        # log this user in
+        login(username, password)
+        return redirect('/shopping-list')
+
+    data['error'] = "*" + str(error) + "*"
+    return render_template('create_account.html', data=data)
 
 
 @flask_app.route('/login', methods=['POST', 'GET'])
@@ -168,19 +166,16 @@ def authenticate_user():
         data['error'] = None
         return render_template('login.html', data=data)
 
-    if request.method == 'POST':
+    password = request.form['password']
+    username = request.form['username']
 
-        password = request.form['password']
-        username = request.form['username']
+    error = login(username, password)
 
-        error = login(username, password)
+    if error is not True:
+        data['error'] = "*" + str(error) + "*"
+        return render_template('login.html', data=data)
 
-        if error is not True:
-            data['error'] = "*" + str(error) + "*"
-            return render_template('login.html', data=data)
-
-        else:
-            return redirect('/shopping-list')
+    return redirect('/shopping-list')
 
 
 @flask_app.route('/logout', methods=['GET'])
