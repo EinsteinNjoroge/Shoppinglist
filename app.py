@@ -3,6 +3,7 @@ from flask import redirect
 from flask import render_template
 from flask import request
 from flask import session
+import os
 
 import global_functions
 from classes.shopping_list import ShoppingList
@@ -10,7 +11,7 @@ from classes.user import User
 
 user_accounts = {}
 flask_app = Flask('ShoppingList', template_folder="Designs", static_folder='Designs/assets')
-flask_app.secret_key = "#$%^GH456BYTR^&*UIJKfg78UHjhy4ghSDFfd564GJhnGH"
+flask_app.secret_key = os.urandom(24)
 
 
 def create_user_account(username=None, password=None, firstname="", lastname=""):
