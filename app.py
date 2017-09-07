@@ -185,10 +185,10 @@ def create_shoppinglist():
     # if error message was returned display error
     if error_msg is not None:
         # show shoppinglists page with error message
-        view_shopping_list(message=error_msg)
-    else:
-        # show shoppinglists
-        return redirect('/shopping-list')
+        return view_shopping_list(message=error_msg)
+
+    # show shoppinglists
+    return redirect('/shopping-list')
 
 
 @flask_app.route('/shopping-list', methods=['GET'])
@@ -221,8 +221,7 @@ def view_shopping_list(return_type=None, message=None):
         data['current_users_shopping_lists'] = current_users_shopping_lists
 
     if return_type == 'raw':
-
-        # returns python dictionary
+        # returns raw data (python dictionary)
         return data
 
     return render_template('shopping-list.html', data=data)
