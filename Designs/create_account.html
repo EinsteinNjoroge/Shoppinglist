@@ -45,8 +45,12 @@
         <br>
         <button class="btn btn-primary" type="submit">Create</button>
         <br>
+        <br>
+        <br>
         <!-- Display error message if there are any -->
-        {{data['error']}}
+        {% if data['error'] != None %}
+        <div class="btn btn-warning col-md-12">{{ data['error'] }}</div>
+        {% endif %}
         <br><br>
         Already have an account? &nbsp;&nbsp;&nbsp;<a href="/login">Sign in</a>
     </form>

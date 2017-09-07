@@ -13,12 +13,7 @@ class User(object):
                 firstname (str): The user's first name.
                 lastname (str): The user's last name.
 
-            Methods:
-                create_shopping_list
-                remove_shopping_list
-                list_shopping_lists
-
-            Args:
+            :arg
                 username (str): A unique name to identify user.
                 password (str): A secret phrase to authenticate a user.
                 firstname (str): The user's first name.
@@ -27,19 +22,19 @@ class User(object):
             """
 
         self.username = username
-        self.password_hash = password
+        self.password_hash = global_functions.sha1_hash(password)
         self.firstname = firstname
         self.lastname = lastname
         self.shopping_lists = dict()
         self.id = global_functions.get_random_id()
 
-    def create_shopping_list(self, title):
+    def create_shopping_list(self, title=None):
         """ Creates a new ShoppingList object
 
-            Args:
+            :arg
                 title: The caption of the  shoppinglist
 
-            Returns:
+            :returns
                 str: id of the new shoppinglist that has been created
 
         """
@@ -51,25 +46,24 @@ class User(object):
 
         for shoppinglist in self.shopping_lists.values():
             if title.lower() == shoppinglist.title.lower():
-                return "Shopping list " + title + " already exists"
+                return "Shopping list `" + title + "` already exists"
 
         new_list = ShoppingList(title)
 
-        # add the new shopping list object to the list of shoppinglists owned by current user
+        # add the new shopping list object to the list of shoppinglists
+        # owned by current user
         self.shopping_lists[str(new_list.id)] = new_list
-
-        return str(new_list.id)
 
     def remove_shopping_list(self, shopping_list_id):
         """ Deletes the selected shoppinglist object from memory
 
-            Args:
+            :arg
                 shopping_list_id (str): The caption of the  shoppinglist
 
-            Returns:
-                True if the shoppinglist has been deleted successfully, otherwise return
+            :returns
+                True if the shoppinglist has been deleted successfully,
+                 otherwise return
                 error message
-
         """
 
         if not isinstance(shopping_list_id, int):
@@ -84,8 +78,9 @@ class User(object):
 
     def list_shopping_lists(self):
         """
-            Returns:
-                list: Returns a list of all the shoppinglists owned by current user
+            :returns
+                list: Returns a list of all the shoppinglists
+                 owned by current user
 
         """
         list_names = []

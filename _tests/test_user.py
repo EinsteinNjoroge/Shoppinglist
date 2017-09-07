@@ -28,7 +28,10 @@ class TestUser(TestCase):
         self.assertIsInstance(self.user.shopping_lists, dict)
 
     def test_create_shopping_list_without_title(self):
-        self.assertTrue(self.user.create_shopping_list(None), "shopping list must have a title")
+        self.assertTrue(
+            self.user.create_shopping_list(None),
+            "shopping list must have a title"
+        )
 
     def test_create_shopping_list_with_invalid_title(self):
         self.assertTrue(
@@ -39,22 +42,12 @@ class TestUser(TestCase):
     def test_create_shopping_list(self):
         # attempt to create a shopping list
         shopping_list_title = "back to school"
-        created_shopping_list = self.user.create_shopping_list(shopping_list_title)
+        self.user.create_shopping_list(shopping_list_title)
 
-        self.assertEqual(
-            shopping_list_title,
-            self.user.shopping_lists[created_shopping_list].title,
-            msg="Method create_shopping_list should add a ShoppingList object to shopping_lists"
-        )
-
-    def test_create_shopping_list_returns_str(self):
-        # Create a shopping list
-        shopping_list_title = "back to school"
-
-        self.assertIsInstance(
-            self.user.create_shopping_list(shopping_list_title),
-            str,
-            msg="Method create_shopping_list should return id of the shopping list created"
+        self.assertTrue(
+            len(self.user.shopping_lists) == 1,
+            msg="create_shopping_list should add  ShoppingList object"
+                " to shopping_lists"
         )
 
     def test_create_shopping_list_with_duplicate_title(self):
@@ -64,7 +57,7 @@ class TestUser(TestCase):
 
         self.assertEqual(
             self.user.create_shopping_list(shopping_list_title),
-            "Shopping list " + shopping_list_title + " already exists"
+            "Shopping list `" + shopping_list_title + "` already exists"
         )
 
     def test_list_shopping_list_returns_list(self):
@@ -76,7 +69,11 @@ class TestUser(TestCase):
         self.user.create_shopping_list("Test shopping list 2")
         self.user.create_shopping_list("Test shopping list 3")
 
-        expected_list = ["Test shopping list", "Test shopping list 2", "Test shopping list 3"]
+        expected_list = [
+            "Test shopping list",
+            "Test shopping list 2",
+            "Test shopping list 3"
+        ]
 
         self.assertTrue(
             set(self.user.list_shopping_lists()) == set(expected_list)
@@ -84,7 +81,8 @@ class TestUser(TestCase):
 
     def test_remove_shopping_list_invalid_argument(self):
         self.assertEqual(
-            self.user.remove_shopping_list([]), "Shopping list id should be an Integer"
+            self.user.remove_shopping_list([]),
+            "Shopping list id should be an Integer"
         )
 
     def test_remove_shopping_list_that_do_not_exist(self):
@@ -97,9 +95,11 @@ class TestUser(TestCase):
     def test_remove_shopping_list(self):
         # Create multiple shopping lists
         self.user.create_shopping_list("Test shopping list")
-        shopping_list_to_be_removed = self.user.create_shopping_list("Test shopping list 10")
+        shopping_list_to_be_removed = self.user.create_shopping_list(
+            "Test shopping list 10"
+        )
 
         self.assertTrue(
             self.user.remove_shopping_list(shopping_list_to_be_removed),
-            msg="Method remove_shopping_list should return True on successful completion"
+            msg="Method remove_shopping_list should return True if successful"
         )

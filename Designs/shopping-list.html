@@ -57,12 +57,15 @@
             </table>
         </form>
         <br>
+        {% if data['message'] != None %}
+        <div class="btn btn-warning col-md-12">{{ data['message'] }}</div>
+        {% endif %}
         <br>
-        <form method="post" action="/create/shoppinglist" class="add-shoppinglist">
+        <form method="post" action="/create/shopping-list" class="add-shoppinglist">
             <h4>Add shoppinglist</h4>
             <div class="form-group col-md-10">
-                <input type="text" name="shoppinglist" class="form-control"
-                       value="{{request.form.shoppinglist}}"
+                <input type="text" name="title" class="form-control"
+                       value="{{request.form.title}}"
                        aria-required="true" required placeholder="New shoppinglist">
             </div>
             <div class="form-group col-md-2">
