@@ -126,6 +126,7 @@ def create_user():
     data = {'host_url': request.host_url}
 
     if request.method == 'GET':
+        data['error'] = None
         return render_template('create_account.html', data=data)
 
     else:
@@ -153,6 +154,7 @@ def authenticate_user():
     data = {'host_url': request.host_url}
 
     if request.method == 'GET':
+        data['error'] = None
         return render_template('login.html', data=data)
 
     if request.method == 'POST':
