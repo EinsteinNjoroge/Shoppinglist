@@ -245,6 +245,15 @@ def update_shoppinglist():
     # get selected shoppinglist
     shoppinglist = get_shopping_list(identifier)
     if shoppinglist is not None:
+        # validate that no other already existing shoppinglist
+        # has the same title
+        current_users_shopping_lists_objects = \
+            user_accounts[session["user_logged_in"]].shopping_lists.values()
+        for shopping_list in current_users_shopping_lists_objects:
+            if title.lower() == shopping_list.title.lower():
+                error_msg = "Shopping list `" + title + "` already exists"
+                return view_shopping_list(message=error_msg)
+
         shoppinglist.update(title)
 
     return redirect('/shopping-list')
