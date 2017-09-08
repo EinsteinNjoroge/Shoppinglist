@@ -144,7 +144,8 @@ def create_user():
     password = request.form['password']
     username = request.form['username']
 
-    error = create_user_account(username.lower().strip(), password, firstname, lastname)
+    error = create_user_account(
+        username.lower().strip(), password, firstname, lastname)
 
     if error is None:
         # log this user in
