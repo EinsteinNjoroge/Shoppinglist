@@ -27,9 +27,8 @@ def get_attributes_from_class(instance_of_class):
     members = [
         attr for attr in
         dir(instance_of_class) if not
-                                  callable(
-                                      getattr(instance_of_class, attr)) and not
-                                  attr.startswith("__")
+        callable(getattr(instance_of_class, attr)) and not
+        attr.startswith("__")
     ]
 
     # loop through members array
