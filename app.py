@@ -325,6 +325,12 @@ def update_shoppinglist_item(shoppinglist_id):
     # get items in the selected shopping list
     shoppinglist = get_shopping_list(shoppinglist_id)
     for item in shoppinglist.items:
+
+        # validate no other item has same name
+        if item.name.lower() == name.lower():
+            error_msg = "Item `" + name + "` already exists"
+            return view_shoppinglist_items(shoppinglist_id, message=error_msg)
+
         if str(item.id) == item_id:
             item.update(name)
             break
