@@ -188,7 +188,7 @@ def end_session():
 def create_shoppinglist():
     title = request.form['title']
     current_user = user_accounts[session["user_logged_in"]]
-    error_msg = current_user.create_shopping_list(title=title)
+    error_msg = current_user.create_shopping_list(title=title.strip())
 
     # if error message was returned display error
     if error_msg is not None:
@@ -245,12 +245,13 @@ def update_shoppinglist():
     # get selected shoppinglist
     shoppinglist = get_shopping_list(identifier)
     if shoppinglist is not None:
+
         # validate that no other already existing shoppinglist
         # has the same title
         current_users_shopping_lists_objects = \
             user_accounts[session["user_logged_in"]].shopping_lists.values()
         for shopping_list in current_users_shopping_lists_objects:
-            if title.lower() == shopping_list.title.lower():
+            if title.lower().strip() == shopping_list.title.lower():
                 error_msg = "Shopping list `" + title + "` already exists"
                 return view_shopping_list(message=error_msg)
 
@@ -278,7 +279,7 @@ def create_shoppinglist_item(shoppinglist_id):
     shoppinglist = get_shopping_list(shoppinglist_id)
 
     if shoppinglist is not None:
-        error_msg = shoppinglist.add_item(item_name)
+        error_msg = shoppinglist.add_item(item_name.strip())
         if error_msg is not None:
             return view_shoppinglist_items(shoppinglist_id, error_msg)
 
@@ -327,7 +328,7 @@ def update_shoppinglist_item(shoppinglist_id):
     for item in shoppinglist.items:
 
         # validate no other item has same name
-        if item.name.lower() == name.lower():
+        if item.name.lower() == name.lower().strip():
             error_msg = "Item `" + name + "` already exists"
             return view_shoppinglist_items(shoppinglist_id, message=error_msg)
 
